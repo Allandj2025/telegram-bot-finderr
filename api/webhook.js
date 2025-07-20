@@ -515,164 +515,110 @@ function checkRateLimit(userId) {
     return true;
 }
 
-// Función mejorada de búsqueda
+// Función SIMPLIFICADA de búsqueda
 function searchBots(query, userLang = 'es') {
     if (!query || query.trim().length < 2) return [];
     
     const searchTerm = query.toLowerCase().trim();
     const results = [];
     
-    // Búsquedas directas por nombres populares de bots
-    const directSearches = {
-        'spotify': ['spotify', 'music'],
-        'youtube': ['youtube', 'video', 'music'],
-        'netflix': ['netflix', 'movie', 'film'],
-        'weather': ['weather', 'clima', 'tiempo'],
-        'translate': ['translate', 'translator', 'translation'],
-        'calculator': ['calculator', 'calc', 'math'],
-        'reminder': ['reminder', 'remind', 'alert'],
-        'todo': ['todo', 'task', 'list'],
-        'news': ['news', 'noticias', 'breaking'],
-        'crypto': ['crypto', 'bitcoin', 'currency'],
-        'quiz': ['quiz', 'trivia', 'question'],
-        'meme': ['meme', 'funny', 'humor'],
-        'photo': ['photo', 'image', 'pic'],
-        'download': ['download', 'dl', 'get']
-    };
+    console.log(`Iniciando búsqueda para: "${searchTerm}"`);
     
-    // Términos de búsqueda por idioma
-    const searchMappings = {
+    // Mapeo simple de categorías por idioma
+    const categoryMap = {
         'es': {
-            'juegos': ['juego', 'juegos', 'game', 'games', 'play', 'gaming'],
-            'musica': ['musica', 'música', 'music', 'song', 'audio', 'sound'],
-            'educacion': ['educacion', 'educación', 'education', 'learn', 'study', 'school'],
-            'noticias': ['noticias', 'news', 'noticia', 'info', 'información'],
-            'productividad': ['productividad', 'productivity', 'work', 'todo', 'task']
+            'musica': ['música', 'music', 'musica', 'cancion', 'audio', 'sound', 'spotify', 'youtube'],
+            'juegos': ['juegos', 'games', 'juego', 'game', 'play', 'gaming', 'quiz', 'trivia'],
+            'educacion': ['educacion', 'educación', 'education', 'learn', 'study', 'translate', 'calculator'],
+            'noticias': ['noticias', 'news', 'noticia', 'weather', 'clima', 'crypto'],
+            'productividad': ['productividad', 'productivity', 'work', 'todo', 'task', 'reminder']
         },
         'en': {
-            'juegos': ['game', 'games', 'play', 'gaming', 'entertainment'],
-            'musica': ['music', 'song', 'audio', 'sound', 'radio'],
-            'educacion': ['education', 'learn', 'study', 'school', 'teaching'],
-            'noticias': ['news', 'information', 'update', 'report'],
-            'productividad': ['productivity', 'work', 'task', 'organize', 'efficiency']
-        },
-        'ru': {
-            'juegos': ['игра', 'игры', 'развлечение', 'game', 'games'],
-            'musica': ['музыка', 'песня', 'аудио', 'звук', 'music'],
-            'educacion': ['образование', 'обучение', 'учеба', 'школа', 'education'],
-            'noticias': ['новости', 'информация', 'сводка', 'news'],
-            'productividad': ['продуктивность', 'работа', 'задача', 'productivity']
-        },
-        'zh': {
-            'juegos': ['遊戲', '游戏', '娛樂', '遊玩', 'game', 'games'],
-            'musica': ['音樂', '音乐', '歌曲', '聲音', 'music'],
-            'educacion': ['教育', '學習', '學校', '知識', 'education'],
-            'noticias': ['新聞', '新闻', '資訊', '消息', 'news'],
-            'productividad': ['生產力', '工作', '效率', '任務', 'productivity']
-        },
-        'pt': {
-            'juegos': ['jogo', 'jogos', 'diversão', 'entretenimento', 'game'],
-            'musica': ['música', 'canção', 'áudio', 'som', 'music'],
-            'educacion': ['educação', 'aprender', 'estudo', 'escola', 'education'],
-            'noticias': ['notícias', 'informação', 'novidades', 'news'],
-            'productividad': ['produtividade', 'trabalho', 'tarefa', 'productivity']
-        },
-        'ja': {
-            'juegos': ['ゲーム', 'ゲームズ', '遊び', '娯楽', 'game'],
-            'musica': ['音楽', '歌', 'オーディオ', '音', 'music'],
-            'educacion': ['教育', '学習', '勉強', '学校', 'education'],
-            'noticias': ['ニュース', '情報', '知らせ', 'news'],
-            'productividad': ['生産性', '仕事', 'タスク', '効率', 'productivity']
-        },
-        'ar': {
-            'juegos': ['لعبة', 'ألعاب', 'ترفيه', 'تسلية', 'game'],
-            'musica': ['موسيقى', 'أغنية', 'صوت', 'music'],
-            'educacion': ['تعليم', 'تعلم', 'دراسة', 'مدرسة', 'education'],
-            'noticias': ['أخبار', 'معلومات', 'أنباء', 'news'],
-            'productividad': ['إنتاجية', 'عمل', 'مهمة', 'productivity']
-        },
-        'he': {
-            'juegos': ['משחק', 'משחקים', 'בידור', 'game'],
-            'musica': ['מוזיקה', 'שיר', 'אודיו', 'צליל', 'music'],
-            'educacion': ['חינוך', 'למידה', 'לימודים', 'בית ספר', 'education'],
-            'noticias': ['חדשות', 'מידע', 'עדכונים', 'news'],
-            'productividad': ['פרודוקטיביות', 'עבודה', 'משימה', 'productivity']
-        },
-        'ro': {
-            'juegos': ['joc', 'jocuri', 'divertisment', 'game'],
-            'musica': ['muzică', 'cântec', 'audio', 'sunet', 'music'],
-            'educacion': ['educație', 'învățare', 'studiu', 'școală', 'education'],
-            'noticias': ['știri', 'informații', 'noutăți', 'news'],
-            'productividad': ['productivitate', 'muncă', 'sarcină', 'productivity']
+            'juegos': ['games', 'game', 'play', 'gaming', 'quiz', 'trivia', 'entertainment'],
+            'musica': ['music', 'song', 'audio', 'sound', 'spotify', 'youtube', 'radio'],
+            'educacion': ['education', 'learn', 'study', 'translate', 'calculator', 'math'],
+            'noticias': ['news', 'weather', 'crypto', 'information', 'update'],
+            'productividad': ['productivity', 'work', 'todo', 'task', 'reminder', 'organize']
         }
     };
     
-    // Primero buscar por términos directos populares
-    Object.keys(directSearches).forEach(key => {
-        if (searchTerm.includes(key) || key.includes(searchTerm)) {
-            const relatedTerms = directSearches[key];
-            Object.keys(botCategories).forEach(category => {
-                const bots = botCategories[category] || [];
-                bots.forEach(bot => {
-                    const botText = (bot.name + ' ' + bot.username + ' ' + bot.description).toLowerCase();
-                    const hasDirectMatch = relatedTerms.some(term => botText.includes(term));
-                    if (hasDirectMatch) {
-                        const score = calculateRelevanceScore(bot, searchTerm, false) + 3; // Bonus por búsqueda directa
-                        if (score > 0) {
-                            results.push({ ...bot, category, score });
-                        }
-                    }
-                });
-            });
-        }
-    });
+    // Buscar en todas las categorías de forma SIMPLE
+    const langMap = categoryMap[userLang] || categoryMap['es'];
     
-    // Buscar en todas las categorías
     Object.keys(botCategories).forEach(category => {
         const bots = botCategories[category] || [];
-        
-        // Verificar si el término coincide con la categoría (más flexible)
-        const categoryTerms = searchMappings[userLang]?.[category] || [];
-        const isCategory = categoryTerms.some(term => {
-            const termLower = term.toLowerCase();
-            return termLower.includes(searchTerm) || 
-                   searchTerm.includes(termLower) ||
-                   termLower === searchTerm ||
-                   // Coincidencias parciales
-                   (termLower.length > 3 && searchTerm.length > 3 && 
-                    (termLower.startsWith(searchTerm.substring(0, 3)) || 
-                     searchTerm.startsWith(termLower.substring(0, 3))));
-        });
+        console.log(`Buscando en categoría: ${category}, bots: ${bots.length}`);
         
         bots.forEach(bot => {
-            const score = calculateRelevanceScore(bot, searchTerm, isCategory);
+            let score = 0;
+            const name = bot.name.toLowerCase();
+            const username = bot.username.toLowerCase();
+            const description = bot.description.toLowerCase();
+            
+            // Búsqueda directa en texto
+            if (username.includes(searchTerm)) score += 10;
+            if (name.includes(searchTerm)) score += 8;
+            if (description.includes(searchTerm)) score += 5;
+            
+            // Búsqueda por categoría
+            const categoryTerms = langMap[category] || [];
+            const isCategory = categoryTerms.some(term => 
+                term.toLowerCase().includes(searchTerm) || 
+                searchTerm.includes(term.toLowerCase())
+            );
+            if (isCategory) score += 7;
+            
+            // Búsquedas populares específicas
+            const popularTerms = {
+                'music': ['music', 'song', 'audio', 'spotify', 'youtube'],
+                'musica': ['music', 'song', 'audio', 'spotify', 'youtube'],
+                'game': ['game', 'play', 'quiz', 'trivia'],
+                'juego': ['game', 'play', 'quiz', 'trivia'],
+                'weather': ['weather', 'clima', 'time'],
+                'news': ['news', 'information', 'breaking'],
+                'noticias': ['news', 'information', 'breaking']
+            };
+            
+            Object.keys(popularTerms).forEach(key => {
+                if (searchTerm.includes(key) || key.includes(searchTerm)) {
+                    const terms = popularTerms[key];
+                    terms.forEach(term => {
+                        if (name.includes(term) || username.includes(term) || description.includes(term)) {
+                            score += 6;
+                        }
+                    });
+                }
+            });
+            
+            // Bonus por popularidad y rating
+            if (bot.users > 1000000) score += 2;
+            if (bot.rating >= 4.5) score += 1;
+            
             if (score > 0) {
                 results.push({ ...bot, category, score });
             }
         });
     });
     
-    // Eliminar duplicados basado en username
+    console.log(`Total resultados encontrados: ${results.length}`);
+    
+    // Eliminar duplicados y ordenar
     const uniqueResults = [];
-    const seenUsernames = new Set();
+    const seen = new Set();
     
     results.forEach(bot => {
-        if (!seenUsernames.has(bot.username)) {
-            seenUsernames.add(bot.username);
+        if (!seen.has(bot.username)) {
+            seen.add(bot.username);
             uniqueResults.push(bot);
-        } else {
-            // Si ya existe, mantener el de mayor score
-            const existingIndex = uniqueResults.findIndex(existing => existing.username === bot.username);
-            if (existingIndex !== -1 && bot.score > uniqueResults[existingIndex].score) {
-                uniqueResults[existingIndex] = bot;
-            }
         }
     });
     
-    // Ordenar por relevancia y limitar resultados
+    console.log(`Resultados únicos: ${uniqueResults.length}`);
+    
+    // Ordenar por puntuación y devolver
     return uniqueResults
         .sort((a, b) => b.score - a.score)
-        .slice(0, 50); // Limitar a 50 resultados
+        .slice(0, 20); // Limitar a 20 resultados
 }
 
 // Función para calcular puntuación de relevancia MEJORADA
@@ -754,6 +700,19 @@ function paginateResults(results, page = 0, itemsPerPage = 10) {
         hasNext: endIndex < results.length,
         hasPrev: page > 0
     };
+}
+
+// Función para formatear bot individual
+function formatBot(bot, index) {
+    const stars = '⭐'.repeat(Math.floor(bot.rating));
+    const users = bot.users >= 1000000 ? 
+        `${(bot.users / 1000000).toFixed(1)}M` : 
+        bot.users >= 1000 ? `${(bot.users / 1000).toFixed(0)}K` : bot.users.toString();
+    
+    return `${index}. **${bot.name}**\n` +
+           `   ${bot.username}\n` +
+           `   📝 ${bot.description}\n` +
+           `   ${stars} ${bot.rating} • 👥 ${users} usuarios`;
 }
 
 export default async function handler(req, res) {
@@ -883,6 +842,9 @@ export default async function handler(req, res) {
                     
                     // Usar la nueva función de búsqueda mejorada
                     const results = searchBots(searchTerm, userLang);
+                    
+                    // Debug: log de búsqueda
+                    console.log(`Búsqueda: "${searchTerm}", Idioma: ${userLang}, Resultados: ${results.length}`);
 
                     if (results.length > 0) {
                         const paginated = paginateResults(results, 0, 5);
