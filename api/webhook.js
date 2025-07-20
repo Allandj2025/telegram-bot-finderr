@@ -522,6 +522,24 @@ function searchBots(query, userLang = 'es') {
     const searchTerm = query.toLowerCase().trim();
     const results = [];
     
+    // Búsquedas directas por nombres populares de bots
+    const directSearches = {
+        'spotify': ['spotify', 'music'],
+        'youtube': ['youtube', 'video', 'music'],
+        'netflix': ['netflix', 'movie', 'film'],
+        'weather': ['weather', 'clima', 'tiempo'],
+        'translate': ['translate', 'translator', 'translation'],
+        'calculator': ['calculator', 'calc', 'math'],
+        'reminder': ['reminder', 'remind', 'alert'],
+        'todo': ['todo', 'task', 'list'],
+        'news': ['news', 'noticias', 'breaking'],
+        'crypto': ['crypto', 'bitcoin', 'currency'],
+        'quiz': ['quiz', 'trivia', 'question'],
+        'meme': ['meme', 'funny', 'humor'],
+        'photo': ['photo', 'image', 'pic'],
+        'download': ['download', 'dl', 'get']
+    };
+    
     // Términos de búsqueda por idioma
     const searchMappings = {
         'es': {
@@ -589,15 +607,42 @@ function searchBots(query, userLang = 'es') {
         }
     };
     
+    // Primero buscar por términos directos populares
+    Object.keys(directSearches).forEach(key => {
+        if (searchTerm.includes(key) || key.includes(searchTerm)) {
+            const relatedTerms = directSearches[key];
+            Object.keys(botCategories).forEach(category => {
+                const bots = botCategories[category] || [];
+                bots.forEach(bot => {
+                    const botText = (bot.name + ' ' + bot.username + ' ' + bot.description).toLowerCase();
+                    const hasDirectMatch = relatedTerms.some(term => botText.includes(term));
+                    if (hasDirectMatch) {
+                        const score = calculateRelevanceScore(bot, searchTerm, false) + 3; // Bonus por búsqueda directa
+                        if (score > 0) {
+                            results.push({ ...bot, category, score });
+                        }
+                    }
+                });
+            });
+        }
+    });
+    
     // Buscar en todas las categorías
     Object.keys(botCategories).forEach(category => {
         const bots = botCategories[category] || [];
         
-        // Verificar si el término coincide con la categoría
+        // Verificar si el término coincide con la categoría (más flexible)
         const categoryTerms = searchMappings[userLang]?.[category] || [];
-        const isCategory = categoryTerms.some(term => 
-            term.includes(searchTerm) || searchTerm.includes(term)
-        );
+        const isCategory = categoryTerms.some(term => {
+            const termLower = term.toLowerCase();
+            return termLower.includes(searchTerm) || 
+                   searchTerm.includes(termLower) ||
+                   termLower === searchTerm ||
+                   // Coincidencias parciales
+                   (termLower.length > 3 && searchTerm.length > 3 && 
+                    (termLower.startsWith(searchTerm.substring(0, 3)) || 
+                     searchTerm.startsWith(termLower.substring(0, 3))));
+        });
         
         bots.forEach(bot => {
             const score = calculateRelevanceScore(bot, searchTerm, isCategory);
@@ -607,38 +652,90 @@ function searchBots(query, userLang = 'es') {
         });
     });
     
-    // Ordenar por relevancia
-    return results
+    // Eliminar duplicados basado en username
+    const uniqueResults = [];
+    const seenUsernames = new Set();
+    
+    results.forEach(bot => {
+        if (!seenUsernames.has(bot.username)) {
+            seenUsernames.add(bot.username);
+            uniqueResults.push(bot);
+        } else {
+            // Si ya existe, mantener el de mayor score
+            const existingIndex = uniqueResults.findIndex(existing => existing.username === bot.username);
+            if (existingIndex !== -1 && bot.score > uniqueResults[existingIndex].score) {
+                uniqueResults[existingIndex] = bot;
+            }
+        }
+    });
+    
+    // Ordenar por relevancia y limitar resultados
+    return uniqueResults
         .sort((a, b) => b.score - a.score)
         .slice(0, 50); // Limitar a 50 resultados
 }
 
-// Función para calcular puntuación de relevancia
+// Función para calcular puntuación de relevancia MEJORADA
 function calculateRelevanceScore(bot, searchTerm, isCategory) {
     let score = 0;
     const name = bot.name.toLowerCase();
     const username = bot.username.toLowerCase();
     const description = bot.description.toLowerCase();
+    const searchWords = searchTerm.split(' ').filter(word => word.length > 1);
     
-    // Coincidencia exacta en username (más importante)
-    if (username.includes(searchTerm)) score += 10;
+    // Coincidencia exacta completa (máxima prioridad)
+    if (username.includes(searchTerm)) score += 15;
+    if (name.includes(searchTerm)) score += 12;
+    if (description.includes(searchTerm)) score += 8;
     
-    // Coincidencia en nombre
-    if (name.includes(searchTerm)) score += 8;
+    // Coincidencias parciales por palabras
+    searchWords.forEach(word => {
+        if (username.includes(word)) score += 8;
+        if (name.includes(word)) score += 6;
+        if (description.includes(word)) score += 4;
+    });
     
-    // Coincidencia en descripción
-    if (description.includes(searchTerm)) score += 5;
+    // Búsquedas comunes mejoradas
+    const commonSearches = {
+        'music': ['music', 'song', 'audio', 'sound', 'radio', 'spotify', 'youtube'],
+        'musica': ['music', 'song', 'audio', 'sound', 'radio', 'spotify', 'youtube', 'musica', 'música'],
+        'game': ['game', 'play', 'gaming', 'entertainment', 'fun'],
+        'juego': ['game', 'play', 'gaming', 'entertainment', 'fun', 'juego', 'juegos'],
+        'news': ['news', 'information', 'update', 'report', 'breaking'],
+        'noticias': ['news', 'information', 'update', 'report', 'breaking', 'noticias', 'noticia'],
+        'work': ['productivity', 'work', 'task', 'organize', 'efficiency', 'todo'],
+        'productividad': ['productivity', 'work', 'task', 'organize', 'efficiency', 'todo', 'productividad'],
+        'learn': ['education', 'learn', 'study', 'school', 'teaching', 'course'],
+        'educacion': ['education', 'learn', 'study', 'school', 'teaching', 'course', 'educacion', 'educación']
+    };
+    
+    // Aplicar búsquedas semánticas
+    Object.keys(commonSearches).forEach(key => {
+        if (searchTerm.includes(key) || key.includes(searchTerm)) {
+            const relatedTerms = commonSearches[key];
+            relatedTerms.forEach(term => {
+                if (username.includes(term)) score += 5;
+                if (name.includes(term)) score += 4;
+                if (description.includes(term)) score += 3;
+            });
+        }
+    });
     
     // Bonus si es búsqueda por categoría
-    if (isCategory) score += 3;
+    if (isCategory) score += 5;
     
     // Bonus por popularidad (usuarios)
-    if (bot.users > 5000000) score += 2;
-    if (bot.users > 10000000) score += 1;
+    if (bot.users > 10000000) score += 3;
+    else if (bot.users > 5000000) score += 2;
+    else if (bot.users > 1000000) score += 1;
     
     // Bonus por rating
-    if (bot.rating >= 4.5) score += 2;
-    if (bot.rating >= 4.0) score += 1;
+    if (bot.rating >= 4.7) score += 3;
+    else if (bot.rating >= 4.5) score += 2;
+    else if (bot.rating >= 4.0) score += 1;
+    
+    // Penalización por términos muy cortos sin contexto
+    if (searchTerm.length < 3 && score < 5) score = 0;
     
     return score;
 }
