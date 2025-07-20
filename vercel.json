@@ -1,27 +1,6 @@
 {
-  "version": 2,
-  "name": "telegram-bot-finder",
-  "builds": [
-    {
-      "src": "telegram-bot-finder.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/webhook",
-      "dest": "/telegram-bot-finder.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/telegram-bot-finder.js"
-    }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  },
   "functions": {
-    "telegram-bot-finder.js": {
+    "index.js": {
       "maxDuration": 30
     }
   }
