@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "name": "whatsapp-bot-finder",
+  "builds": [
+    {
+      "src": "whatsapp-qr-real.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/whatsapp-qr-real.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "functions": {
+    "whatsapp-qr-real.js": {
+      "maxDuration": 30
+    }
+  }
+}
