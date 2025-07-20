@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Telegram Bot Finder</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0088cc 0%, #005580 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .telegram-btn {
+            background: #0088cc;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 20px 0;
+            font-weight: bold;
+            font-size: 18px;
+            transition: transform 0.2s;
+        }
+        .telegram-btn:hover { transform: scale(1.05); }
+        .stats { margin: 30px 0; }
+        .stat { margin: 15px 0; font-size: 18px; }
+        .features {
+            text-align: left;
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        .features ul { padding-left: 20px; }
+        .features li { margin: 8px 0; }
+        .status {
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Telegram Bot Finder</h1>
+        <p>El mejor buscador de bots de Telegram</p>
+        
+        <div class="status">✅ Bot Activo</div>
+        
+        <div class="stats">
+            <div class="stat">📊 Miles de bots organizados</div>
+            <div class="stat">📂 5 categorías principales</div>
+            <div class="stat">🔍 Búsqueda inteligente</div>
+            <div class="stat">⚡ Respuestas instantáneas</div>
+        </div>
+        
+        <a href="https://t.me/YourBotUsername" class="telegram-btn">
+            📱 Abrir Bot en Telegram
+        </a>
+        
+        <div class="features">
+            <h3>🎯 Características:</h3>
+            <ul>
+                <li>Búsqueda por categorías</li>
+                <li>Bot aleatorio</li>
+                <li>Estadísticas en tiempo real</li>
+                <li>Interfaz fácil de usar</li>
+                <li>Información detallada</li>
+                <li>Actualizaciones constantes</li>
+            </ul>
+        </div>
+        
+        <div class="features">
+            <h3>📂 Categorías disponibles:</h3>
+            <ul>
+                <li>🎮 Juegos</li>
+                <li>🎵 Música</li>
+                <li>📚 Educación</li>
+                <li>📰 Noticias</li>
+                <li>💼 Productividad</li>
+            </ul>
+        </div>
+        
+        <p style="margin-top: 20px; opacity: 0.8;">
+            Última actualización: <span id="timestamp"></span>
+        </p>
+    </div>
+
+    <script>
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+    </script>
+</body>
+</html>
