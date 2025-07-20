@@ -3,7 +3,7 @@
 const https = require('https');
 
 // Configuración
-const BOT_TOKEN = '7849605209:AAGqA6D9L_x5EjHlGgLg8HgSv-Qc9ZYfq0c';
+const BOT_TOKEN = '8024809640:AAHYb79o5FAatz_r8eSevsZAXjZVHVcEG8o';
 
 // Función para hacer petición HTTP
 function makeRequest(url, data) {
