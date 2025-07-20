@@ -437,16 +437,6 @@ function checkRateLimit(userId) {
     return true;
 }
 
-// Función para formatear bot individual
-function formatBot(bot, index) {
-    const stars = '⭐'.repeat(Math.floor(bot.rating));
-    const users = bot.users >= 1000000 ? 
-        `${(bot.users / 1000000).toFixed(1)}M` : 
-        bot.users >= 1000 ? `${(bot.users / 1000).toFixed(0)}K` : bot.users.toString();
-    
-    return `${index}. **${bot.name}**\n   ${bot.username}\n   📝 ${bot.description}\n   ${stars} ${bot.rating} • 👥 ${users} usuarios`;
-}
-
 // Función mejorada de búsqueda
 function searchBots(query, userLang = 'es') {
     if (!query || query.trim().length < 2) return [];
