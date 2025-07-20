@@ -46,6 +46,84 @@ const languages = {
             noticias: '📰 Новости', 
             productividad: '💼 Продуктивность'
         }
+    },
+    'zh': {
+        welcome: '🤖 *歡迎使用已驗證機器人搜尋器！*\n\n👋 您好，我是您尋找**100%功能性** Telegram 機器人的助手。\n\n📊 *我的資料庫包括：*\n• ✅ **{totalBots}個已驗證機器人**可正常運作\n• 🔗 **手動檢查**的連結\n• ⭐ **真實用戶**統計\n• 🔍 **智能搜尋**關鍵詞\n\n🎮 *已驗證機器人類別：*\n• 🎮 **遊戲** - {juegos}個機器人 (@gamee, @triviabot, 等)\n• 🎵 **音樂** - {musica}個機器人 (@lyricsbot, @musicdownloaderbot, 等)\n• 📚 **教育** - {educacion}個機器人 (@translatorbot, @mathbot, 等)\n• 📰 **新聞** - {noticias}個機器人 (@weatherbot, @cryptobot, 等)\n• 💼 **生產力** - {productividad}個機器人 (@reminderbot, @todobot, 等)\n\n💡 *實用指令：*\n• /start - 顯示此選單\n• /search [詞彙] - 搜尋特定機器人\n• /help - 查看詳細說明\n• /lang - 變更語言\n\n🚀 *所有機器人都已驗證且功能正常！*',
+        help: '❓ *完整說明*\n\n🤖 *這個機器人是什麼？*\n我是**已驗證機器人搜尋器**，您尋找**100%功能性** Telegram 機器人的助手。我擁有超過50,000個已驗證可用機器人的資料庫。\n\n🎯 *可用指令：*\n• /start - 顯示主選單\n• /search [詞彙] - 搜尋特定機器人\n• /help - 此說明\n• /lang - 變更語言\n\n🔍 *如何搜尋：*\n• `/search 音樂` - 尋找音樂機器人\n• `/search 遊戲` - 尋找遊戲機器人\n• `/search 新聞` - 尋找新聞機器人\n\n📱 *導航：*\n• 使用按鈕探索類別\n• 用 ⬅️ ➡️ 在頁面間導航\n• 點擊任何 @username 開啟機器人\n\n✅ *保證：*\n我們所有的機器人都經過手動驗證。',
+        searchResults: '🔍 *"{query}"的搜尋結果：*\n\n找到{count}個機器人：',
+        noResults: '❌ *找不到"{query}"的機器人*\n\n請嘗試：\n• 更一般的詞彙\n• 英文詞彙\n• 類別名稱',
+        categories: {
+            juegos: '🎮 遊戲',
+            musica: '🎵 音樂',
+            educacion: '📚 教育',
+            noticias: '📰 新聞',
+            productividad: '💼 生產力'
+        }
+    },
+    'pt': {
+        welcome: '🤖 *Bem-vindo ao Buscador de Bots VERIFICADOS!*\n\n👋 Olá, sou seu assistente para encontrar bots **100% FUNCIONAIS** do Telegram.\n\n📊 *Minha base de dados inclui:*\n• ✅ **{totalBots} bots VERIFICADOS** que funcionam\n• 🔗 **Links verificados** manualmente\n• ⭐ **Estatísticas reais** de usuários\n• 🔍 **Busca inteligente** por palavras-chave\n\n🎮 *Categorias com bots VERIFICADOS:*\n• 🎮 **Jogos** - {juegos} bots (@gamee, @triviabot, etc.)\n• 🎵 **Música** - {musica} bots (@lyricsbot, @musicdownloaderbot, etc.)\n• 📚 **Educação** - {educacion} bots (@translatorbot, @mathbot, etc.)\n• 📰 **Notícias** - {noticias} bots (@weatherbot, @cryptobot, etc.)\n• 💼 **Produtividade** - {productividad} bots (@reminderbot, @todobot, etc.)\n\n💡 *Comandos úteis:*\n• /start - Mostrar este menu\n• /search [termo] - Buscar bots específicos\n• /help - Ver ajuda detalhada\n• /lang - Mudar idioma\n\n🚀 *Todos os bots são VERIFICADOS e FUNCIONAIS!*',
+        help: '❓ *AJUDA COMPLETA*\n\n🤖 *O que é este bot?*\nSou o **Buscador de Bots VERIFICADOS**, seu assistente para encontrar bots **100% FUNCIONAIS** do Telegram. Tenho uma base de dados com mais de 50.000 bots VERIFICADOS que funcionam.\n\n🎯 *Comandos disponíveis:*\n• /start - Mostrar menu principal\n• /search [palavra] - Buscar bots específicos\n• /help - Esta ajuda\n• /lang - Mudar idioma\n\n🔍 *Como buscar:*\n• `/search música` - Encontrar bots de música\n• `/search jogos` - Encontrar bots de jogos\n• `/search notícias` - Encontrar bots de notícias\n\n📱 *Navegação:*\n• Use os botões para explorar categorias\n• Navegue com ⬅️ ➡️ entre páginas\n• Clique em qualquer @username para abrir o bot\n\n✅ *Garantia:*\nTodos nossos bots foram verificados manualmente.',
+        searchResults: '🔍 *Resultados da busca por "{query}":*\n\nEncontrados {count} bots:',
+        noResults: '❌ *Nenhum bot encontrado para "{query}"*\n\nTente com:\n• Termos mais gerais\n• Palavras em inglês\n• Nomes de categorias',
+        categories: {
+            juegos: '🎮 Jogos',
+            musica: '🎵 Música',
+            educacion: '📚 Educação',
+            noticias: '📰 Notícias',
+            productividad: '💼 Produtividade'
+        }
+    },
+    'ja': {
+        welcome: '🤖 *認証済みボット検索へようこそ！*\n\n👋 こんにちは、**100%機能する** Telegramボットを見つけるお手伝いをします。\n\n📊 *データベースには以下が含まれています：*\n• ✅ **{totalBots}個の認証済みボット**が動作中\n• 🔗 **手動で確認済み**のリンク\n• ⭐ **実際のユーザー**統計\n• 🔍 **スマート検索**キーワード機能\n\n🎮 *認証済みボットのカテゴリ：*\n• 🎮 **ゲーム** - {juegos}個のボット (@gamee, @triviabot, など)\n• 🎵 **音楽** - {musica}個のボット (@lyricsbot, @musicdownloaderbot, など)\n• 📚 **教育** - {educacion}個のボット (@translatorbot, @mathbot, など)\n• 📰 **ニュース** - {noticias}個のボット (@weatherbot, @cryptobot, など)\n• 💼 **生産性** - {productividad}個のボット (@reminderbot, @todobot, など)\n\n💡 *便利なコマンド：*\n• /start - このメニューを表示\n• /search [用語] - 特定のボットを検索\n• /help - 詳細なヘルプを見る\n• /lang - 言語を変更\n\n🚀 *すべてのボットは認証済みで機能します！*',
+        help: '❓ *完全なヘルプ*\n\n🤖 *このボットとは？*\n私は**認証済みボット検索**、**100%機能する** Telegramボットを見つけるためのアシスタントです。50,000以上の認証済み動作ボットのデータベースを持っています。\n\n🎯 *利用可能なコマンド：*\n• /start - メインメニューを表示\n• /search [単語] - 特定のボットを検索\n• /help - このヘルプ\n• /lang - 言語を変更\n\n🔍 *検索方法：*\n• `/search 音楽` - 音楽ボットを見つける\n• `/search ゲーム` - ゲームボットを見つける\n• `/search ニュース` - ニュースボットを見つける\n\n📱 *ナビゲーション：*\n• ボタンを使ってカテゴリを探索\n• ⬅️ ➡️ でページ間を移動\n• @usernameをクリックしてボットを開く\n\n✅ *保証：*\nすべてのボットは手動で認証されています。',
+        searchResults: '🔍 *"{query}"の検索結果：*\n\n{count}個のボットが見つかりました：',
+        noResults: '❌ *"{query}"のボットが見つかりません*\n\n次をお試しください：\n• より一般的な用語\n• 英語の単語\n• カテゴリ名',
+        categories: {
+            juegos: '🎮 ゲーム',
+            musica: '🎵 音楽',
+            educacion: '📚 教育',
+            noticias: '📰 ニュース',
+            productividad: '💼 生産性'
+        }
+    },
+    'ar': {
+        welcome: '🤖 *أهلاً بك في باحث البوتات المُتحقق منها!*\n\n👋 مرحباً، أنا مساعدك للعثور على بوتات تيليجرام **الفعّالة 100%**.\n\n📊 *قاعدة بياناتي تتضمن:*\n• ✅ **{totalBots} بوت مُتحقق منه** يعمل\n• 🔗 **روابط مفحوصة** يدوياً\n• ⭐ **إحصائيات حقيقية** للمستخدمين\n• 🔍 **بحث ذكي** بالكلمات المفتاحية\n\n🎮 *فئات البوتات المُتحقق منها:*\n• 🎮 **الألعاب** - {juegos} بوت (@gamee, @triviabot, إلخ)\n• 🎵 **الموسيقى** - {musica} بوت (@lyricsbot, @musicdownloaderbot, إلخ)\n• 📚 **التعليم** - {educacion} بوت (@translatorbot, @mathbot, إلخ)\n• 📰 **الأخبار** - {noticias} بوت (@weatherbot, @cryptobot, إلخ)\n• 💼 **الإنتاجية** - {productividad} بوت (@reminderbot, @todobot, إلخ)\n\n💡 *الأوامر المفيدة:*\n• /start - عرض هذه القائمة\n• /search [مصطلح] - البحث عن بوتات محددة\n• /help - عرض المساعدة التفصيلية\n• /lang - تغيير اللغة\n\n🚀 *جميع البوتات مُتحقق منها وفعّالة!*',
+        help: '❓ *المساعدة الكاملة*\n\n🤖 *ما هو هذا البوت؟*\nأنا **باحث البوتات المُتحقق منها**، مساعدك للعثور على بوتات تيليجرام **الفعّالة 100%**. لدي قاعدة بيانات تضم أكثر من 50,000 بوت مُتحقق منه ويعمل.\n\n🎯 *الأوامر المتاحة:*\n• /start - عرض القائمة الرئيسية\n• /search [كلمة] - البحث عن بوتات محددة\n• /help - هذه المساعدة\n• /lang - تغيير اللغة\n\n🔍 *كيفية البحث:*\n• `/search موسيقى` - العثور على بوتات الموسيقى\n• `/search ألعاب` - العثور على بوتات الألعاب\n• `/search أخبار` - العثور على بوتات الأخبار\n\n📱 *التنقل:*\n• استخدم الأزرار لاستكشاف الفئات\n• تنقل بـ ⬅️ ➡️ بين الصفحات\n• انقر على أي @username لفتح البوت\n\n✅ *الضمان:*\nجميع بوتاتنا تم التحقق منها يدوياً.',
+        searchResults: '🔍 *نتائج البحث عن "{query}":*\n\nتم العثور على {count} بوت:',
+        noResults: '❌ *لم يتم العثور على بوتات لـ "{query}"*\n\nجرب مع:\n• مصطلحات أكثر عمومية\n• كلمات إنجليزية\n• أسماء الفئات',
+        categories: {
+            juegos: '🎮 الألعاب',
+            musica: '🎵 الموسيقى',
+            educacion: '📚 التعليم',
+            noticias: '📰 الأخبار',
+            productividad: '💼 الإنتاجية'
+        }
+    },
+    'he': {
+        welcome: '🤖 *ברוכים הבאים לחיפוש בוטים מאומתים!*\n\n👋 שלום, אני העוזר שלך למצוא בוטים **פונקציונליים 100%** בטלגרם.\n\n📊 *מסד הנתונים שלי כולל:*\n• ✅ **{totalBots} בוטים מאומתים** שעובדים\n• 🔗 **קישורים שנבדקו** ידנית\n• ⭐ **סטטיסטיקות אמיתיות** של משתמשים\n• 🔍 **חיפוש חכם** לפי מילות מפתח\n\n🎮 *קטגוריות עם בוטים מאומתים:*\n• 🎮 **משחקים** - {juegos} בוטים (@gamee, @triviabot, וכו\')\n• 🎵 **מוזיקה** - {musica} בוטים (@lyricsbot, @musicdownloaderbot, וכו\')\n• 📚 **חינוך** - {educacion} בוטים (@translatorbot, @mathbot, וכו\')\n• 📰 **חדשות** - {noticias} בוטים (@weatherbot, @cryptobot, וכו\')\n• 💼 **פרודוקטיביות** - {productividad} בוטים (@reminderbot, @todobot, וכו\')\n\n💡 *פקודות שימושיות:*\n• /start - הצג תפריט זה\n• /search [מונח] - חפש בוטים ספציפיים\n• /help - ראה עזרה מפורטת\n• /lang - שנה שפה\n\n🚀 *כל הבוטים מאומתים ופונקציונליים!*',
+        help: '❓ *עזרה מלאה*\n\n🤖 *מה זה הבוט הזה?*\nאני **חיפוש בוטים מאומתים**, העוזר שלך למצוא בוטים **פונקציונליים 100%** בטלגרם. יש לי מסד נתונים עם יותר מ-50,000 בוטים מאומתים שעובדים.\n\n🎯 *פקודות זמינות:*\n• /start - הצג תפריט ראשי\n• /search [מילה] - חפש בוטים ספציפיים\n• /help - העזרה הזו\n• /lang - שנה שפה\n\n🔍 *איך לחפש:*\n• `/search מוזיקה` - מצא בוטי מוזיקה\n• `/search משחקים` - מצא בוטי משחקים\n• `/search חדשות` - מצא בוטי חדשות\n\n📱 *ניווט:*\n• השתמש בכפתורים לחקור קטגוריות\n• נווט עם ⬅️ ➡️ בין דפים\n• לחץ על כל @username לפתוח את הבוט\n\n✅ *ערבות:*\nכל הבוטים שלנו אומתו ידנית.',
+        searchResults: '🔍 *תוצאות חיפוש עבור "{query}":*\n\nנמצאו {count} בוטים:',
+        noResults: '❌ *לא נמצאו בוטים עבור "{query}"*\n\nנסה עם:\n• מונחים כלליים יותר\n• מילים באנגלית\n• שמות קטגוריות',
+        categories: {
+            juegos: '🎮 משחקים',
+            musica: '🎵 מוזיקה',
+            educacion: '📚 חינוך',
+            noticias: '📰 חדשות',
+            productividad: '💼 פרודוקטיביות'
+        }
+    },
+    'ro': {
+        welcome: '🤖 *Bun venit la Căutătorul de Boți VERIFICAȚI!*\n\n👋 Salut, sunt asistentul tău pentru a găsi boți **100% FUNCȚIONALI** pe Telegram.\n\n📊 *Baza mea de date include:*\n• ✅ **{totalBots} boți VERIFICAȚI** care funcționează\n• 🔗 **Link-uri verificate** manual\n• ⭐ **Statistici reale** ale utilizatorilor\n• 🔍 **Căutare inteligentă** prin cuvinte cheie\n\n🎮 *Categorii cu boți VERIFICAȚI:*\n• 🎮 **Jocuri** - {juegos} boți (@gamee, @triviabot, etc.)\n• 🎵 **Muzică** - {musica} boți (@lyricsbot, @musicdownloaderbot, etc.)\n• 📚 **Educație** - {educacion} boți (@translatorbot, @mathbot, etc.)\n• 📰 **Știri** - {noticias} boți (@weatherbot, @cryptobot, etc.)\n• 💼 **Productivitate** - {productividad} boți (@reminderbot, @todobot, etc.)\n\n💡 *Comenzi utile:*\n• /start - Arată acest meniu\n• /search [termen] - Caută boți specifici\n• /help - Vezi ajutor detaliat\n• /lang - Schimbă limba\n\n🚀 *Toți boții sunt VERIFICAȚI și FUNCȚIONALI!*',
+        help: '❓ *AJUTOR COMPLET*\n\n🤖 *Ce este acest bot?*\nSunt **Căutătorul de Boți VERIFICAȚI**, asistentul tău pentru a găsi boți **100% FUNCȚIONALI** pe Telegram. Am o bază de date cu peste 50.000 de boți VERIFICAȚI care funcționează.\n\n🎯 *Comenzi disponibile:*\n• /start - Arată meniul principal\n• /search [cuvânt] - Caută boți specifici\n• /help - Acest ajutor\n• /lang - Schimbă limba\n\n🔍 *Cum să cauți:*\n• `/search muzică` - Găsește boți muzicali\n• `/search jocuri` - Găsește boți de jocuri\n• `/search știri` - Găsește boți de știri\n\n📱 *Navigare:*\n• Folosește butoanele pentru a explora categoriile\n• Navighează cu ⬅️ ➡️ între pagini\n• Dă click pe orice @username pentru a deschide botul\n\n✅ *Garanție:*\nToți boții noștri au fost verificați manual.',
+        searchResults: '🔍 *Rezultate căutare pentru "{query}":*\n\nGăsite {count} boți:',
+        noResults: '❌ *Nu s-au găsit boți pentru "{query}"*\n\nÎncearcă cu:\n• Termeni mai generali\n• Cuvinte în engleză\n• Nume de categorii',
+        categories: {
+            juegos: '🎮 Jocuri',
+            musica: '🎵 Muzică',
+            educacion: '📚 Educație',
+            noticias: '📰 Știri',
+            productividad: '💼 Productivitate'
+        }
     }
 };
 
@@ -466,6 +544,48 @@ function searchBots(query, userLang = 'es') {
             'educacion': ['образование', 'обучение', 'учеба', 'школа', 'education'],
             'noticias': ['новости', 'информация', 'сводка', 'news'],
             'productividad': ['продуктивность', 'работа', 'задача', 'productivity']
+        },
+        'zh': {
+            'juegos': ['遊戲', '游戏', '娛樂', '遊玩', 'game', 'games', 'play'],
+            'musica': ['音樂', '音乐', '歌曲', '音頻', '聲音', 'music', 'song'],
+            'educacion': ['教育', '學習', '学习', '學校', '学校', 'education', 'learn'],
+            'noticias': ['新聞', '新闻', '消息', '資訊', '资讯', 'news'],
+            'productividad': ['生產力', '生产力', '工作', '效率', 'productivity', 'work']
+        },
+        'pt': {
+            'juegos': ['jogo', 'jogos', 'game', 'games', 'jogar', 'entretenimento'],
+            'musica': ['música', 'musica', 'som', 'áudio', 'canção', 'music'],
+            'educacion': ['educação', 'educacao', 'aprender', 'estudo', 'escola', 'education'],
+            'noticias': ['notícias', 'noticias', 'informação', 'informacao', 'news'],
+            'productividad': ['produtividade', 'trabalho', 'tarefa', 'productivity', 'work']
+        },
+        'ja': {
+            'juegos': ['ゲーム', 'げーむ', 'プレイ', 'エンターテイメント', 'game', 'play'],
+            'musica': ['音楽', 'おんがく', '歌', 'うた', 'オーディオ', 'music', 'song'],
+            'educacion': ['教育', 'きょういく', '学習', 'がくしゅう', '勉強', 'education', 'learn'],
+            'noticias': ['ニュース', 'にゅーす', '情報', 'じょうほう', 'news'],
+            'productividad': ['生産性', 'せいさんせい', '仕事', 'しごと', 'productivity', 'work']
+        },
+        'ar': {
+            'juegos': ['لعبة', 'ألعاب', 'لعب', 'ترفيه', 'game', 'games'],
+            'musica': ['موسيقى', 'أغنية', 'صوت', 'موسيقية', 'music', 'song'],
+            'educacion': ['تعليم', 'تعلم', 'دراسة', 'مدرسة', 'education', 'learn'],
+            'noticias': ['أخبار', 'معلومات', 'إعلام', 'news'],
+            'productividad': ['إنتاجية', 'عمل', 'مهمة', 'productivity', 'work']
+        },
+        'he': {
+            'juegos': ['משחק', 'משחקים', 'משחק', 'בידור', 'game', 'games'],
+            'musica': ['מוזיקה', 'שיר', 'צליל', 'אודיו', 'music', 'song'],
+            'educacion': ['חינוך', 'לימוד', 'לימודים', 'בית ספר', 'education', 'learn'],
+            'noticias': ['חדשות', 'מידע', 'עדכון', 'news'],
+            'productividad': ['פרודוקטיביות', 'עבודה', 'משימה', 'productivity', 'work']
+        },
+        'ro': {
+            'juegos': ['joc', 'jocuri', 'game', 'games', 'divertisment'],
+            'musica': ['muzică', 'muzica', 'cântec', 'audio', 'sunet', 'music'],
+            'educacion': ['educație', 'educatie', 'învățare', 'studiu', 'școală', 'education'],
+            'noticias': ['știri', 'stiri', 'informații', 'informatii', 'news'],
+            'productividad': ['productivitate', 'muncă', 'munca', 'sarcină', 'productivity']
         }
     };
     
@@ -604,21 +724,29 @@ export default async function handler(req, res) {
                     });
                 }
                 
-                else if (text === '/lang') {
-                    const langKeyboard = {
-                        inline_keyboard: [
-                            [
-                                { text: '🇪🇸 Español', callback_data: 'setlang_es' },
-                                { text: '🇺🇸 English', callback_data: 'setlang_en' }
-                            ],
-                            [
-                                { text: '🇷🇺 Русский', callback_data: 'setlang_ru' }
-                            ],
-                            [
-                                { text: '🏠 Menu', callback_data: 'menu' }
-                            ]
+                            else if (text === '/lang') {
+                const langKeyboard = {
+                    inline_keyboard: [
+                        [
+                            { text: '🇪🇸 Español', callback_data: 'setlang_es' },
+                            { text: '🇺🇸 English', callback_data: 'setlang_en' },
+                            { text: '🇷🇺 Русский', callback_data: 'setlang_ru' }
+                        ],
+                        [
+                            { text: '🇨🇳 繁體中文', callback_data: 'setlang_zh' },
+                            { text: '🇵🇹 Português', callback_data: 'setlang_pt' },
+                            { text: '🇯🇵 日本語', callback_data: 'setlang_ja' }
+                        ],
+                        [
+                            { text: '🇸🇦 العربية', callback_data: 'setlang_ar' },
+                            { text: '🇮🇱 עברית', callback_data: 'setlang_he' },
+                            { text: '🇷🇴 Română', callback_data: 'setlang_ro' }
+                        ],
+                        [
+                            { text: '🏠 Menu', callback_data: 'menu' }
                         ]
-                    };
+                    ]
+                };
                     
                     await bot.sendMessage(chatId, '🌐 *Select Language / Seleccionar Idioma / Выберите язык*', {
                         parse_mode: 'Markdown',
@@ -778,21 +906,29 @@ export default async function handler(req, res) {
                     });
                 }
                 
-                else if (data === 'lang') {
-                    const langKeyboard = {
-                        inline_keyboard: [
-                            [
-                                { text: '🇪🇸 Español', callback_data: 'setlang_es' },
-                                { text: '🇺🇸 English', callback_data: 'setlang_en' }
-                            ],
-                            [
-                                { text: '🇷🇺 Русский', callback_data: 'setlang_ru' }
-                            ],
-                            [
-                                { text: '🏠 Menu', callback_data: 'menu' }
-                            ]
+                            else if (data === 'lang') {
+                const langKeyboard = {
+                    inline_keyboard: [
+                        [
+                            { text: '🇪🇸 Español', callback_data: 'setlang_es' },
+                            { text: '🇺🇸 English', callback_data: 'setlang_en' },
+                            { text: '🇷🇺 Русский', callback_data: 'setlang_ru' }
+                        ],
+                        [
+                            { text: '🇨🇳 繁體中文', callback_data: 'setlang_zh' },
+                            { text: '🇵🇹 Português', callback_data: 'setlang_pt' },
+                            { text: '🇯🇵 日本語', callback_data: 'setlang_ja' }
+                        ],
+                        [
+                            { text: '🇸🇦 العربية', callback_data: 'setlang_ar' },
+                            { text: '🇮🇱 עברית', callback_data: 'setlang_he' },
+                            { text: '🇷🇴 Română', callback_data: 'setlang_ro' }
+                        ],
+                        [
+                            { text: '🏠 Menu', callback_data: 'menu' }
                         ]
-                    };
+                    ]
+                };
                     
                     await bot.editMessageText('🌐 *Select Language / Seleccionar Idioma / Выберите язык*', {
                         chat_id: chatId,
