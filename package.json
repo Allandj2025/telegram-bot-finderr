@@ -1,0 +1,31 @@
+{
+  "name": "whatsapp-bot-finder",
+  "version": "1.0.0",
+  "description": "Bot de WhatsApp para buscar otros bots con 100,000 bots en 20 categorías",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "whatsapp",
+    "bot",
+    "finder",
+    "search",
+    "bots"
+  ],
+  "author": "Allan Sanchez",
+  "license": "MIT",
+  "dependencies": {
+    "whatsapp-web.js": "^1.23.0",
+    "qrcode-terminal": "^0.12.0",
+    "express": "^4.18.2",
+    "puppeteer": "^21.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
