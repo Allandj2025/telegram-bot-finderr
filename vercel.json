@@ -1,23 +1,27 @@
 {
   "version": 2,
-  "name": "whatsapp-bot-finder",
+  "name": "telegram-bot-finder",
   "builds": [
     {
-      "src": "whatsapp-qr-real.js",
+      "src": "telegram-bot-finder.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
+      "src": "/webhook",
+      "dest": "/telegram-bot-finder.js"
+    },
+    {
       "src": "/(.*)",
-      "dest": "/whatsapp-qr-real.js"
+      "dest": "/telegram-bot-finder.js"
     }
   ],
   "env": {
     "NODE_ENV": "production"
   },
   "functions": {
-    "whatsapp-qr-real.js": {
+    "telegram-bot-finder.js": {
       "maxDuration": 30
     }
   }
