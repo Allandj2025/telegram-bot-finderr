@@ -1,338 +1,355 @@
-const express = require('express');
-const app = express();
-const PORT = process.env.PORT || 3000;
+const TelegramBot = require('node-telegram-bot-api');
 
-// Simular base de datos de bots
-const generateBots = (category, count) => {
-    const bots = [];
-    const keywords = {
-        'juegos': ['Game', 'Play', 'Quiz', 'Trivia', 'Fun'],
-        'musica': ['Music', 'Song', 'Audio', 'Radio', 'Beat'],
-        'entretenimiento': ['Fun', 'Meme', 'Joke', 'Comedy', 'Show'],
-        'educacion': ['Learn', 'Study', 'Edu', 'Course', 'Teacher'],
-        'productividad': ['Task', 'Work', 'Schedule', 'Note', 'Reminder'],
-        'compras': ['Shop', 'Buy', 'Store', 'Market', 'Deal'],
-        'noticias': ['News', 'Info', 'Alert', 'Update', 'Report'],
-        'fitness': ['Fit', 'Health', 'Gym', 'Workout', 'Diet'],
-        'comida': ['Food', 'Recipe', 'Cook', 'Kitchen', 'Chef'],
-        'viajes': ['Travel', 'Trip', 'Hotel', 'Flight', 'Tour'],
-        'finanzas': ['Money', 'Bank', 'Crypto', 'Investment', 'Finance'],
-        'arte': ['Art', 'Design', 'Creative', 'Draw', 'Paint'],
-        'deportes': ['Sport', 'Football', 'Soccer', 'Basketball', 'Fitness'],
-        'herramientas': ['Tool', 'Utility', 'Convert', 'Calculator', 'Helper'],
-        'citas': ['Dating', 'Love', 'Match', 'Romance', 'Meet'],
-        'tecnologia': ['Tech', 'Code', 'AI', 'Programming', 'Software'],
-        'peliculas': ['Movie', 'Film', 'Cinema', 'Series', 'TV'],
-        'libros': ['Book', 'Read', 'Story', 'Novel', 'Library'],
-        'idiomas': ['Language', 'Translate', 'English', 'Spanish', 'Learn'],
-        'otros': ['General', 'Multi', 'All', 'Various', 'Mixed']
+// Token del bot (se configurará en Vercel como variable de entorno)
+const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN || '7849605209:AAGqA6D9L_x5EjHlGgLg8HgSv-Qc9ZYfq0c';
+
+// Crear bot sin polling para Vercel
+const bot = new TelegramBot(TELEGRAM_TOKEN);
+
+// Base de datos simplificada de bots
+const generateSimpleBotDatabase = () => {
+    const categories = {
+        'juegos': ['Game', 'Play', 'Quiz', 'Fun', 'Adventure'],
+        'musica': ['Music', 'Song', 'Radio', 'DJ', 'Beat'],
+        'entretenimiento': ['Meme', 'Joke', 'Fun', 'Show', 'Comedy'],
+        'educacion': ['Learn', 'Study', 'Course', 'Teacher', 'Tutorial'],
+        'productividad': ['Task', 'Work', 'Note', 'Calendar', 'Reminder'],
+        'compras': ['Shop', 'Store', 'Deal', 'Market', 'Buy'],
+        'noticias': ['News', 'Info', 'Update', 'Alert', 'Report'],
+        'fitness': ['Gym', 'Health', 'Workout', 'Diet', 'Fitness'],
+        'comida': ['Food', 'Recipe', 'Cook', 'Chef', 'Kitchen'],
+        'viajes': ['Travel', 'Trip', 'Hotel', 'Flight', 'Tour']
     };
-    
-    const words = keywords[category] || ['Bot', 'Helper'];
-    
-    for (let i = 1; i <= count; i++) {
-        const word = words[Math.floor(Math.random() * words.length)];
-        bots.push({
-            name: `${word} Bot ${i}`,
-            phone: `+1${Math.floor(Math.random() * 9000000000) + 1000000000}`,
-            description: `Bot de ${category} para WhatsApp - ${word} especializado`,
-            verified: Math.random() > 0.8,
-            rating: (Math.random() * 2 + 3).toFixed(1),
-            users: Math.floor(Math.random() * 50000) + 1000
-        });
-    }
-    return bots;
+
+    const allBots = [];
+    Object.keys(categories).forEach(category => {
+        const keywords = categories[category];
+        for (let i = 1; i <= 1000; i++) { // Reducido para mejor rendimiento
+            const keyword = keywords[Math.floor(Math.random() * keywords.length)];
+            allBots.push({
+                id: `${category}_${i}`,
+                name: `${keyword} Bot ${i}`,
+                category: category,
+                username: `@${keyword.toLowerCase()}bot${i}`,
+                description: `Bot de ${category} especializado en ${keyword.toLowerCase()}`,
+                verified: Math.random() > 0.8,
+                rating: (Math.random() * 2 + 3).toFixed(1),
+                users: Math.floor(Math.random() * 50000) + 1000
+            });
+        }
+    });
+    return allBots;
 };
 
-const botCategories = {
-    'juegos': generateBots('juegos', 5000),
-    'musica': generateBots('musica', 5000),
-    'entretenimiento': generateBots('entretenimiento', 5000),
-    'educacion': generateBots('educacion', 5000),
-    'productividad': generateBots('productividad', 5000),
-    'compras': generateBots('compras', 5000),
-    'noticias': generateBots('noticias', 5000),
-    'fitness': generateBots('fitness', 5000),
-    'comida': generateBots('comida', 5000),
-    'viajes': generateBots('viajes', 5000),
-    'finanzas': generateBots('finanzas', 5000),
-    'arte': generateBots('arte', 5000),
-    'deportes': generateBots('deportes', 5000),
-    'herramientas': generateBots('herramientas', 5000),
-    'citas': generateBots('citas', 5000),
-    'tecnologia': generateBots('tecnologia', 5000),
-    'peliculas': generateBots('peliculas', 5000),
-    'libros': generateBots('libros', 5000),
-    'idiomas': generateBots('idiomas', 5000),
-    'otros': generateBots('otros', 5000)
+const botDatabase = generateSimpleBotDatabase();
+
+// Función para formatear bot
+const formatBot = (bot, index = null) => {
+    const verified = bot.verified ? '✅' : '';
+    const stars = '⭐'.repeat(Math.floor(bot.rating));
+    const prefix = index !== null ? `${index}. ` : '';
+    
+    return `${prefix}*${bot.name}* ${verified}
+📱 ${bot.username}
+📝 ${bot.description}
+${stars} ${bot.rating}/5 | 👥 ${bot.users.toLocaleString()}
+📂 ${bot.category}`;
 };
 
-// Página principal
-app.get('/', (req, res) => {
-    res.send(`
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>🤖 WhatsApp Bot Finder</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                max-width: 800px;
-                margin: 0 auto;
-                padding: 20px;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                color: white;
-            }
-            .container {
-                background: white;
-                color: black;
-                padding: 30px;
-                border-radius: 15px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            }
-            .header {
-                text-align: center;
-                margin-bottom: 30px;
-            }
-            .category-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 15px;
-                margin: 20px 0;
-            }
-            .category-btn {
-                background: #25d366;
-                color: white;
-                padding: 15px;
-                border: none;
-                border-radius: 10px;
-                cursor: pointer;
-                font-size: 16px;
-                transition: transform 0.2s;
-                text-decoration: none;
-                display: block;
-                text-align: center;
-            }
-            .category-btn:hover {
-                transform: scale(1.05);
-                background: #20b954;
-            }
-            .search-box {
-                width: 100%;
-                padding: 15px;
-                border: 2px solid #25d366;
-                border-radius: 10px;
-                font-size: 16px;
-                margin: 20px 0;
-            }
-            .stats {
-                background: #f0f8ff;
-                padding: 20px;
-                border-radius: 10px;
-                margin: 20px 0;
-                text-align: center;
-            }
-            .whatsapp-link {
-                background: #25d366;
-                color: white;
-                padding: 20px;
-                border-radius: 10px;
-                text-align: center;
-                margin: 20px 0;
-                font-size: 18px;
-                font-weight: bold;
-            }
-            .whatsapp-link a {
-                color: white;
-                text-decoration: none;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="header">
-                <h1>🤖 WhatsApp Bot Finder</h1>
-                <p><strong>¡Encuentra el bot perfecto para WhatsApp!</strong></p>
-            </div>
+// Teclado de categorías
+const getCategoriesKeyboard = () => {
+    return {
+        inline_keyboard: [
+            [
+                { text: '🎮 Juegos', callback_data: 'cat_juegos' },
+                { text: '🎵 Música', callback_data: 'cat_musica' }
+            ],
+            [
+                { text: '📺 Entretenimiento', callback_data: 'cat_entretenimiento' },
+                { text: '📚 Educación', callback_data: 'cat_educacion' }
+            ],
+            [
+                { text: '💼 Productividad', callback_data: 'cat_productividad' },
+                { text: '🛍️ Compras', callback_data: 'cat_compras' }
+            ],
+            [
+                { text: '📰 Noticias', callback_data: 'cat_noticias' },
+                { text: '🏋️ Fitness', callback_data: 'cat_fitness' }
+            ],
+            [
+                { text: '🍔 Comida', callback_data: 'cat_comida' },
+                { text: '✈️ Viajes', callback_data: 'cat_viajes' }
+            ],
+            [
+                { text: '🎲 Bot Aleatorio', callback_data: 'random' },
+                { text: '📊 Estadísticas', callback_data: 'stats' }
+            ]
+        ]
+    };
+};
 
-            <div class="whatsapp-link">
-                📱 <a href="https://wa.me/message/BCQJSGCE2DRWH1" target="_blank">
-                    ¡HAZ CLIC AQUÍ PARA ABRIR EN WHATSAPP DIRECTAMENTE!
-                </a> 📱
-            </div>
+// Función principal del webhook
+module.exports = async (req, res) => {
+    if (req.method === 'POST') {
+        const update = req.body;
+        
+        try {
+            if (update.message) {
+                const chatId = update.message.chat.id;
+                const text = update.message.text;
 
-            <div class="stats">
-                <h3>📊 Estadísticas</h3>
-                <p><strong>100,000 bots</strong> | <strong>20 categorías</strong> | <strong>5,000 por categoría</strong></p>
-            </div>
+                if (text === '/start') {
+                    const welcomeMessage = `🤖 *¡Bienvenido al Bot Finder!*
 
-            <input type="text" class="search-box" placeholder="🔍 Buscar bots..." onkeyup="buscarBots(this.value)">
+📊 *Base de datos:*
+• 10,000 bots organizados
+• 10 categorías principales
+• 1,000 bots por categoría
 
-            <div class="category-grid">
-                <a href="/categoria/juegos" class="category-btn">🎮 Juegos (5,000)</a>
-                <a href="/categoria/musica" class="category-btn">🎵 Música (5,000)</a>
-                <a href="/categoria/entretenimiento" class="category-btn">📺 Entretenimiento (5,000)</a>
-                <a href="/categoria/educacion" class="category-btn">📚 Educación (5,000)</a>
-                <a href="/categoria/productividad" class="category-btn">💼 Productividad (5,000)</a>
-                <a href="/categoria/compras" class="category-btn">🛍️ Compras (5,000)</a>
-                <a href="/categoria/noticias" class="category-btn">📰 Noticias (5,000)</a>
-                <a href="/categoria/fitness" class="category-btn">🏋️ Fitness (5,000)</a>
-                <a href="/categoria/comida" class="category-btn">🍔 Comida (5,000)</a>
-                <a href="/categoria/viajes" class="category-btn">✈️ Viajes (5,000)</a>
-                <a href="/categoria/finanzas" class="category-btn">💰 Finanzas (5,000)</a>
-                <a href="/categoria/arte" class="category-btn">🎨 Arte (5,000)</a>
-                <a href="/categoria/deportes" class="category-btn">⚽ Deportes (5,000)</a>
-                <a href="/categoria/herramientas" class="category-btn">🔧 Herramientas (5,000)</a>
-                <a href="/categoria/citas" class="category-btn">❤️ Citas (5,000)</a>
-                <a href="/categoria/tecnologia" class="category-btn">📱 Tecnología (5,000)</a>
-                <a href="/categoria/peliculas" class="category-btn">🎬 Películas (5,000)</a>
-                <a href="/categoria/libros" class="category-btn">📖 Libros (5,000)</a>
-                <a href="/categoria/idiomas" class="category-btn">🌍 Idiomas (5,000)</a>
-                <a href="/categoria/otros" class="category-btn">🎯 Otros (5,000)</a>
-            </div>
+🎯 Encuentra el bot perfecto para ti:`;
 
-            <div class="whatsapp-link">
-                💬 <strong>Para usar el bot, simplemente haz clic en el enlace de WhatsApp de arriba</strong> 💬
-            </div>
-        </div>
+                    await bot.sendMessage(chatId, welcomeMessage, {
+                        parse_mode: 'Markdown',
+                        reply_markup: getCategoriesKeyboard()
+                    });
+                }
+                
+                else if (text.startsWith('/search ')) {
+                    const searchTerm = text.replace('/search ', '').toLowerCase();
+                    const results = botDatabase.filter(bot => 
+                        bot.name.toLowerCase().includes(searchTerm) ||
+                        bot.category.toLowerCase().includes(searchTerm)
+                    ).slice(0, 5);
 
-        <script>
-            function buscarBots(termino) {
-                if (termino.length > 2) {
-                    window.location.href = '/buscar/' + encodeURIComponent(termino);
+                    if (results.length > 0) {
+                        let message = `🔍 *Resultados para "${searchTerm}":*\n\n`;
+                        results.forEach((bot, index) => {
+                            message += formatBot(bot, index + 1) + '\n\n';
+                        });
+
+                        await bot.sendMessage(chatId, message, {
+                            parse_mode: 'Markdown',
+                            reply_markup: {
+                                inline_keyboard: [[
+                                    { text: '🏠 Menú principal', callback_data: 'menu' }
+                                ]]
+                            }
+                        });
+                    } else {
+                        await bot.sendMessage(chatId, `❌ No encontré bots para "${searchTerm}"\n\n💡 Intenta: juegos, música, educación`, {
+                            reply_markup: {
+                                inline_keyboard: [[
+                                    { text: '🏠 Menú principal', callback_data: 'menu' }
+                                ]]
+                            }
+                        });
+                    }
+                }
+                
+                else if (text === '/random') {
+                    const randomBot = botDatabase[Math.floor(Math.random() * botDatabase.length)];
+                    const message = `🎲 *Bot Aleatorio:*\n\n${formatBot(randomBot)}`;
+
+                    await bot.sendMessage(chatId, message, {
+                        parse_mode: 'Markdown',
+                        reply_markup: {
+                            inline_keyboard: [
+                                [
+                                    { text: '🎲 Otro aleatorio', callback_data: 'random' },
+                                    { text: '🏠 Menú', callback_data: 'menu' }
+                                ]
+                            ]
+                        }
+                    });
+                }
+                
+                else if (text === '/help') {
+                    const helpMessage = `❓ *AYUDA*
+
+🎯 *Comandos:*
+• /start - Menú principal
+• /search [término] - Buscar bots
+• /random - Bot aleatorio
+• /help - Esta ayuda
+
+💡 *Ejemplos:*
+• \`/search juegos\`
+• \`/search música\``;
+
+                    await bot.sendMessage(chatId, helpMessage, {
+                        parse_mode: 'Markdown',
+                        reply_markup: getCategoriesKeyboard()
+                    });
                 }
             }
-        </script>
-    </body>
-    </html>
-    `);
-});
+            
+            else if (update.callback_query) {
+                const callbackQuery = update.callback_query;
+                const chatId = callbackQuery.message.chat.id;
+                const messageId = callbackQuery.message.message_id;
+                const data = callbackQuery.data;
 
-// Ruta para categorías
-app.get('/categoria/:categoria', (req, res) => {
-    const categoria = req.params.categoria;
-    const bots = botCategories[categoria] || [];
-    const muestra = bots.slice(0, 20);
-    
-    let html = `
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>🤖 ${categoria.toUpperCase()} - WhatsApp Bot Finder</title>
-        <style>
-            body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f0f8ff; }
-            .bot-card { background: white; padding: 15px; margin: 10px 0; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-            .bot-name { font-size: 18px; font-weight: bold; color: #25d366; }
-            .bot-phone { color: #666; margin: 5px 0; }
-            .bot-desc { margin: 10px 0; }
-            .bot-stats { color: #888; font-size: 14px; }
-            .back-btn { background: #25d366; color: white; padding: 10px 20px; border: none; border-radius: 5px; margin: 20px 0; }
-            .whatsapp-direct { background: #25d366; color: white; padding: 15px; border-radius: 10px; text-align: center; margin: 20px 0; }
-            .whatsapp-direct a { color: white; text-decoration: none; font-weight: bold; }
-        </style>
-    </head>
-    <body>
-        <div class="whatsapp-direct">
-            📱 <a href="https://wa.me/message/BCQJSGCE2DRWH1" target="_blank">
-                ¡ABRE EL BOT EN WHATSAPP AHORA!
-            </a> 📱
-        </div>
-        
-        <h1>🤖 ${categoria.toUpperCase()} (${bots.length.toLocaleString()} bots)</h1>
-        <button class="back-btn" onclick="window.location.href='/'">← Volver al inicio</button>
-    `;
-    
-    muestra.forEach((bot, index) => {
-        const verified = bot.verified ? '✅' : '';
-        const stars = '⭐'.repeat(Math.floor(bot.rating));
-        html += `
-        <div class="bot-card">
-            <div class="bot-name">${bot.name} ${verified}</div>
-            <div class="bot-phone">📞 ${bot.phone}</div>
-            <div class="bot-desc">📝 ${bot.description}</div>
-            <div class="bot-stats">${stars} ${bot.rating} | 👥 ${bot.users.toLocaleString()} usuarios</div>
-        </div>
-        `;
-    });
-    
-    html += `
-        <div class="whatsapp-direct">
-            💡 <strong>Mostrando 20 de ${bots.length.toLocaleString()} bots</strong><br>
-            📱 <a href="https://wa.me/message/BCQJSGCE2DRWH1" target="_blank">
-                ¡USA EL BOT EN WHATSAPP PARA VER TODOS!
-            </a>
-        </div>
-    </body>
-    </html>
-    `;
-    
-    res.send(html);
-});
+                if (data.startsWith('cat_')) {
+                    const category = data.replace('cat_', '');
+                    const categoryBots = botDatabase.filter(bot => bot.category === category).slice(0, 5);
+                    
+                    let message = `📂 *${category.toUpperCase()}*\n\n`;
+                    categoryBots.forEach((bot, index) => {
+                        message += formatBot(bot, index + 1) + '\n\n';
+                    });
+                    message += `📊 Mostrando 5 de 1,000 bots`;
 
-// Ruta para búsqueda
-app.get('/buscar/:termino', (req, res) => {
-    const termino = req.params.termino.toLowerCase();
-    const resultados = [];
-    
-    Object.keys(botCategories).forEach(categoria => {
-        const botsCategoria = botCategories[categoria].filter(bot => 
-            bot.name.toLowerCase().includes(termino) ||
-            bot.description.toLowerCase().includes(termino)
-        );
-        resultados.push(...botsCategoria.slice(0, 10));
-    });
-    
-    res.send(`
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>🔍 Búsqueda: ${termino}</title>
-        <style>
-            body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-            .result { background: #f9f9f9; padding: 15px; margin: 10px 0; border-radius: 8px; }
-            .whatsapp-link { background: #25d366; color: white; padding: 15px; border-radius: 10px; text-align: center; margin: 20px 0; }
-            .whatsapp-link a { color: white; text-decoration: none; font-weight: bold; }
-        </style>
-    </head>
-    <body>
-        <div class="whatsapp-link">
-            📱 <a href="https://wa.me/message/BCQJSGCE2DRWH1" target="_blank">
-                ¡USAR BOT EN WHATSAPP DIRECTAMENTE!
-            </a> 📱
-        </div>
-        
-        <h1>🔍 Resultados para: "${termino}"</h1>
-        <p>Encontrados: ${resultados.length} bots</p>
-        
-        ${resultados.map(bot => `
-        <div class="result">
-            <strong>${bot.name}</strong> ${bot.verified ? '✅' : ''}<br>
-            📞 ${bot.phone}<br>
-            📝 ${bot.description}<br>
-            ⭐ ${bot.rating} | 👥 ${bot.users.toLocaleString()} usuarios
-        </div>
-        `).join('')}
-        
-        <div class="whatsapp-link">
-            💬 <a href="https://wa.me/message/BCQJSGCE2DRWH1" target="_blank">
-                ¡BUSCAR MÁS EN EL BOT DE WHATSAPP!
-            </a>
-        </div>
-    </body>
-    </html>
-    `);
-});
+                    await bot.editMessageText(message, {
+                        chat_id: chatId,
+                        message_id: messageId,
+                        parse_mode: 'Markdown',
+                        reply_markup: {
+                            inline_keyboard: [
+                                [
+                                    { text: '🎲 Aleatorio', callback_data: 'random' },
+                                    { text: '🏠 Menú', callback_data: 'menu' }
+                                ]
+                            ]
+                        }
+                    });
+                }
+                
+                else if (data === 'random') {
+                    const randomBot = botDatabase[Math.floor(Math.random() * botDatabase.length)];
+                    const message = `🎲 *Bot Aleatorio:*\n\n${formatBot(randomBot)}`;
 
-app.listen(PORT, () => {
-    console.log(`🚀 WhatsApp Bot Finder corriendo en puerto ${PORT}`);
-    console.log(`📱 Accede desde: http://localhost:${PORT}`);
-    console.log(`🤖 Bot con 100,000 bots listo!`);
-});
+                    await bot.editMessageText(message, {
+                        chat_id: chatId,
+                        message_id: messageId,
+                        parse_mode: 'Markdown',
+                        reply_markup: {
+                            inline_keyboard: [
+                                [
+                                    { text: '🎲 Otro', callback_data: 'random' },
+                                    { text: '🏠 Menú', callback_data: 'menu' }
+                                ]
+                            ]
+                        }
+                    });
+                }
+                
+                else if (data === 'stats') {
+                    const totalBots = botDatabase.length;
+                    const categories = [...new Set(botDatabase.map(bot => bot.category))];
+                    const verifiedBots = botDatabase.filter(bot => bot.verified).length;
 
-module.exports = app;
+                    const statsMessage = `📊 *ESTADÍSTICAS*
+
+🤖 Total: ${totalBots.toLocaleString()}
+✅ Verificados: ${verifiedBots.toLocaleString()}
+📂 Categorías: ${categories.length}
+📅 Actualizado: ${new Date().toLocaleDateString()}`;
+
+                    await bot.editMessageText(statsMessage, {
+                        chat_id: chatId,
+                        message_id: messageId,
+                        parse_mode: 'Markdown',
+                        reply_markup: {
+                            inline_keyboard: [[
+                                { text: '🏠 Menú principal', callback_data: 'menu' }
+                            ]]
+                        }
+                    });
+                }
+                
+                else if (data === 'menu') {
+                    const welcomeMessage = `🤖 *Bot Finder*
+
+📊 10,000 bots organizados
+🎯 Encuentra el bot perfecto
+
+💡 Selecciona una categoría:`;
+
+                    await bot.editMessageText(welcomeMessage, {
+                        chat_id: chatId,
+                        message_id: messageId,
+                        parse_mode: 'Markdown',
+                        reply_markup: getCategoriesKeyboard()
+                    });
+                }
+
+                await bot.answerCallbackQuery(callbackQuery.id);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+        
+        res.status(200).json({ ok: true });
+    }
+    
+    else if (req.method === 'GET') {
+        // Página web de información
+        res.setHeader('Content-Type', 'text/html');
+        res.status(200).send(`
+        <!DOCTYPE html>
+        <html lang="es">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>🤖 Telegram Bot Finder</title>
+            <style>
+                * { margin: 0; padding: 0; box-sizing: border-box; }
+                body { 
+                    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+                    background: linear-gradient(135deg, #0088cc 0%, #005580 100%);
+                    min-height: 100vh;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    padding: 20px;
+                }
+                .container {
+                    background: rgba(255,255,255,0.1);
+                    backdrop-filter: blur(10px);
+                    border-radius: 20px;
+                    padding: 40px;
+                    text-align: center;
+                    max-width: 500px;
+                    width: 100%;
+                }
+                .telegram-btn {
+                    background: #0088cc;
+                    color: white;
+                    padding: 15px 30px;
+                    border-radius: 50px;
+                    text-decoration: none;
+                    display: inline-block;
+                    margin: 20px 0;
+                    font-weight: bold;
+                }
+                .stats { margin: 30px 0; }
+                .stat { margin: 10px 0; font-size: 18px; }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>🤖 Bot Finder</h1>
+                <p>El mejor buscador de bots de Telegram</p>
+                
+                <div class="stats">
+                    <div class="stat">📊 10,000 bots</div>
+                    <div class="stat">📂 10 categorías</div>
+                    <div class="stat">🔍 Búsqueda inteligente</div>
+                    <div class="stat">⚡ Respuestas rápidas</div>
+                </div>
+                
+                <a href="https://t.me/YourBotUsername" class="telegram-btn">
+                    📱 Abrir en Telegram
+                </a>
+                
+                <p>Bot desplegado y funcionando ✅</p>
+                <p>Última actualización: ${new Date().toLocaleString()}</p>
+            </div>
+        </body>
+        </html>
+        `);
+    } else {
+        res.status(405).json({ error: 'Method not allowed' });
+    }
+};
