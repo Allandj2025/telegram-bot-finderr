@@ -1,15 +1,31 @@
 {
-  "name": "whatsapp-bot-finder-web",
-  "version": "1.0.0",
-  "description": "Bot Finder para WhatsApp - Versión Web",
-  "main": "bot-web-directo.js",
+  "name": "whatsapp-bot-finder-real",
+  "version": "2.0.0",
+  "description": "Bot Finder real para WhatsApp con QR válido",
+  "main": "whatsapp-qr-real.js",
   "scripts": {
-    "start": "node bot-web-directo.js"
+    "start": "node whatsapp-qr-real.js",
+    "dev": "nodemon whatsapp-qr-real.js"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "whatsapp-web.js": "^1.23.0",
+    "qrcode": "^1.5.3",
+    "express": "^4.18.2",
+    "puppeteer": "^21.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
   },
   "engines": {
     "node": ">=16.0.0"
-  }
+  },
+  "keywords": [
+    "whatsapp",
+    "bot",
+    "qr",
+    "finder",
+    "vercel"
+  ],
+  "author": "Bot Finder Team",
+  "license": "MIT"
 }
