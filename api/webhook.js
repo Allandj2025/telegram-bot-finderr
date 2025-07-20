@@ -9,10 +9,13 @@ const bot = new TelegramBot(TELEGRAM_TOKEN);
 // Configuración de idiomas
 const languages = {
     'es': {
-        welcome: '🤖 *¡Bienvenido al Buscador de Bots VERIFICADOS!*\n\n👋 Hola, soy tu asistente para encontrar bots **100% FUNCIONALES** de Telegram.\n\n📊 *Mi base de datos incluye:*\n• ✅ **{totalBots} bots VERIFICADOS** que funcionan\n• 🔗 **Enlaces comprobados** manualmente\n• ⭐ **Estadísticas reales** de usuarios\n• 🔍 **Búsqueda inteligente** por palabras clave\n\n🎮 *Categorías con bots VERIFICADOS:*\n• 🎮 **Juegos** - {juegos} bots (@gamee, @triviabot, etc.)\n• 🎵 **Música** - {musica} bots (@lyricsbot, @musicdownloaderbot, etc.)\n• 📚 **Educación** - {educacion} bots (@translatorbot, @mathbot, etc.)\n• 📰 **Noticias** - {noticias} bots (@weatherbot, @cryptobot, etc.)\n• 💼 **Productividad** - {productividad} bots (@reminderbot, @todobot, etc.)\n\n💡 *Comandos útiles:*\n• /start - Mostrar este menú\n• /search [término] - Buscar bots específicos\n• /help - Ver ayuda detallada\n• /lang - Cambiar idioma\n\n🚀 *¡Todos los bots son VERIFICADOS y FUNCIONALES!*',
-        help: '❓ *AYUDA COMPLETA*\n\n🤖 *¿Qué es este bot?*\nSoy el **Buscador de Bots VERIFICADOS**, tu asistente para encontrar bots **100% FUNCIONALES** de Telegram. Tengo una base de datos con más de 50,000 bots VERIFICADOS que funcionan.\n\n🎯 *Comandos disponibles:*\n• /start - Mostrar menú principal\n• /search [palabra] - Buscar bots específicos\n• /help - Esta ayuda\n• /lang - Cambiar idioma\n\n🔍 *Cómo buscar:*\n• `/search música` - Encuentra bots de música\n• `/search juegos` - Encuentra bots de juegos\n• `/search noticias` - Encuentra bots de noticias\n\n📱 *Navegación:*\n• Usa los botones para explorar categorías\n• Navega con ⬅️ ➡️ entre páginas\n• Haz clic en cualquier @username para abrir el bot\n\n✅ *Garantía:*\nTodos nuestros bots han sido verificados manualmente.',
-        searchResults: '🔍 *Resultados de búsqueda para "{query}":*\n\nEncontrados {count} bots:',
-        noResults: '❌ *No se encontraron bots para "{query}"*\n\nIntenta con:\n• Términos más generales\n• Palabras en inglés\n• Nombres de categorías',
+        welcome: '🤖 *¡Bienvenido al Buscador de Bots VERIFICADOS!*\n\n👋 Hola, soy tu asistente para encontrar bots **100% FUNCIONALES** de Telegram.\n\n📊 *Mi base de datos incluye:*\n• ✅ **{totalBots} bots VERIFICADOS** que funcionan\n• 🔗 **Enlaces comprobados** manualmente\n• ⭐ **Estadísticas reales** de usuarios\n• ❤️ **Sistema de favoritos** personalizado\n\n🎮 *Categorías con bots VERIFICADOS:*\n• 🎮 **Juegos** - {juegos} bots (@gamee, @triviabot, etc.)\n• 🎵 **Música** - {musica} bots (@lyricsbot, @musicdownloaderbot, etc.)\n• 📚 **Educación** - {educacion} bots (@translatorbot, @mathbot, etc.)\n• 📰 **Noticias** - {noticias} bots (@weatherbot, @cryptobot, etc.)\n• 💼 **Productividad** - {productividad} bots (@reminderbot, @todobot, etc.)\n\n💡 *Comandos útiles:*\n• /start - Mostrar este menú\n• /favorites - Ver tus bots favoritos\n• /help - Ver ayuda detallada\n• /lang - Cambiar idioma\n\n🚀 *¡Todos los bots son VERIFICADOS y FUNCIONALES!*',
+        help: '❓ *AYUDA COMPLETA*\n\n🤖 *¿Qué es este bot?*\nSoy el **Buscador de Bots VERIFICADOS**, tu asistente para encontrar bots **100% FUNCIONALES** de Telegram. Tengo una base de datos con más de 50,000 bots VERIFICADOS que funcionan.\n\n🎯 *Comandos disponibles:*\n• /start - Mostrar menú principal\n• /favorites - Ver tus bots favoritos\n• /help - Esta ayuda\n• /lang - Cambiar idioma\n\n❤️ *Sistema de Favoritos:*\n• Explora las categorías con los botones\n• Haz clic en "❤️ Favorito" en cualquier bot para guardarlo\n• Usa /favorites para ver tu lista personal\n• Tus favoritos se guardan permanentemente\n\n📱 *Navegación:*\n• Usa los botones para explorar categorías\n• Navega con ⬅️ ➡️ entre páginas\n• Haz clic en cualquier @username para abrir el bot\n• Marca como favorito los bots que más te gusten\n\n✅ *Garantía:*\nTodos nuestros bots han sido verificados manualmente.',
+        favorites: '❤️ *Tus Bots Favoritos*\n\nTienes {count} bots guardados:',
+        noFavorites: '💔 *No tienes bots favoritos aún*\n\n💡 *Para agregar favoritos:*\n• Explora las categorías con los botones\n• Haz clic en "❤️ Favorito" en cualquier bot\n• Regresa aquí con /favorites para verlos',
+        addedToFavorites: '❤️ *¡Bot agregado a favoritos!*\n\nPuedes ver todos tus favoritos con /favorites',
+        removedFromFavorites: '💔 *Bot removido de favoritos*',
+        alreadyInFavorites: '❤️ *Este bot ya está en tus favoritos*',
         categories: {
             juegos: '🎮 Juegos',
             musica: '🎵 Música', 
@@ -22,10 +25,13 @@ const languages = {
         }
     },
     'en': {
-        welcome: '🤖 *Welcome to VERIFIED Bot Finder!*\n\n👋 Hi, I\'m your assistant to find **100% FUNCTIONAL** Telegram bots.\n\n📊 *My database includes:*\n• ✅ **{totalBots} VERIFIED bots** that work\n• 🔗 **Manually checked** links\n• ⭐ **Real user** statistics\n• 🔍 **Smart search** by keywords\n\n🎮 *Categories with VERIFIED bots:*\n• 🎮 **Games** - {juegos} bots (@gamee, @triviabot, etc.)\n• 🎵 **Music** - {musica} bots (@lyricsbot, @musicdownloaderbot, etc.)\n• 📚 **Education** - {educacion} bots (@translatorbot, @mathbot, etc.)\n• 📰 **News** - {noticias} bots (@weatherbot, @cryptobot, etc.)\n• 💼 **Productivity** - {productividad} bots (@reminderbot, @todobot, etc.)\n\n💡 *Useful commands:*\n• /start - Show this menu\n• /search [term] - Search specific bots\n• /help - See detailed help\n• /lang - Change language\n\n🚀 *All bots are VERIFIED and FUNCTIONAL!*',
-        help: '❓ *COMPLETE HELP*\n\n🤖 *What is this bot?*\nI\'m the **VERIFIED Bot Finder**, your assistant to find **100% FUNCTIONAL** Telegram bots. I have a database with over 50,000 VERIFIED working bots.\n\n🎯 *Available commands:*\n• /start - Show main menu\n• /search [word] - Search specific bots\n• /help - This help\n• /lang - Change language\n\n🔍 *How to search:*\n• `/search music` - Find music bots\n• `/search games` - Find game bots\n• `/search news` - Find news bots\n\n📱 *Navigation:*\n• Use buttons to explore categories\n• Navigate with ⬅️ ➡️ between pages\n• Click any @username to open the bot\n\n✅ *Guarantee:*\nAll our bots have been manually verified.',
-        searchResults: '🔍 *Search results for "{query}":*\n\nFound {count} bots:',
-        noResults: '❌ *No bots found for "{query}"*\n\nTry with:\n• More general terms\n• English words\n• Category names',
+        welcome: '🤖 *Welcome to VERIFIED Bot Finder!*\n\n👋 Hi, I\'m your assistant to find **100% FUNCTIONAL** Telegram bots.\n\n📊 *My database includes:*\n• ✅ **{totalBots} VERIFIED bots** that work\n• 🔗 **Manually checked** links\n• ⭐ **Real user** statistics\n• ❤️ **Personal favorites** system\n\n🎮 *Categories with VERIFIED bots:*\n• 🎮 **Games** - {juegos} bots (@gamee, @triviabot, etc.)\n• 🎵 **Music** - {musica} bots (@lyricsbot, @musicdownloaderbot, etc.)\n• 📚 **Education** - {educacion} bots (@translatorbot, @mathbot, etc.)\n• 📰 **News** - {noticias} bots (@weatherbot, @cryptobot, etc.)\n• 💼 **Productivity** - {productividad} bots (@reminderbot, @todobot, etc.)\n\n💡 *Useful commands:*\n• /start - Show this menu\n• /favorites - View your favorite bots\n• /help - See detailed help\n• /lang - Change language\n\n🚀 *All bots are VERIFIED and FUNCTIONAL!*',
+        help: '❓ *COMPLETE HELP*\n\n🤖 *What is this bot?*\nI\'m the **VERIFIED Bot Finder**, your assistant to find **100% FUNCTIONAL** Telegram bots. I have a database with over 50,000 VERIFIED working bots.\n\n🎯 *Available commands:*\n• /start - Show main menu\n• /favorites - View your favorite bots\n• /help - This help\n• /lang - Change language\n\n❤️ *Favorites System:*\n• Explore categories using buttons\n• Click "❤️ Favorite" on any bot to save it\n• Use /favorites to see your personal list\n• Your favorites are saved permanently\n\n📱 *Navigation:*\n• Use buttons to explore categories\n• Navigate with ⬅️ ➡️ between pages\n• Click any @username to open the bot\n• Mark your most useful bots as favorites\n\n✅ *Guarantee:*\nAll our bots have been manually verified.',
+        favorites: '❤️ *Your Favorite Bots*\n\nYou have {count} saved bots:',
+        noFavorites: '💔 *You don\'t have favorite bots yet*\n\n💡 *To add favorites:*\n• Explore categories using buttons\n• Click "❤️ Favorite" on any bot\n• Come back here with /favorites to see them',
+        addedToFavorites: '❤️ *Bot added to favorites!*\n\nYou can see all your favorites with /favorites',
+        removedFromFavorites: '💔 *Bot removed from favorites*',
+        alreadyInFavorites: '❤️ *This bot is already in your favorites*',
         categories: {
             juegos: '🎮 Games',
             musica: '🎵 Music',
@@ -37,8 +43,11 @@ const languages = {
     'ru': {
         welcome: '🤖 *Добро пожаловать в Поиск ПРОВЕРЕННЫХ Ботов!*\n\n👋 Привет, я твой помощник для поиска **100% РАБОЧИХ** ботов Telegram.\n\n📊 *Моя база данных включает:*\n• ✅ **{totalBots} ПРОВЕРЕННЫХ ботов** которые работают\n• 🔗 **Вручную проверенные** ссылки\n• ⭐ **Реальная статистика** пользователей\n• 🔍 **Умный поиск** по ключевым словам\n\n🎮 *Категории с ПРОВЕРЕННЫМИ ботами:*\n• 🎮 **Игры** - {juegos} ботов (@gamee, @triviabot, и др.)\n• 🎵 **Музыка** - {musica} ботов (@lyricsbot, @musicdownloaderbot, и др.)\n• 📚 **Образование** - {educacion} ботов (@translatorbot, @mathbot, и др.)\n• 📰 **Новости** - {noticias} ботов (@weatherbot, @cryptobot, и др.)\n• 💼 **Продуктивность** - {productividad} ботов (@reminderbot, @todobot, и др.)\n\n💡 *Полезные команды:*\n• /start - Показать это меню\n• /search [термин] - Поиск конкретных ботов\n• /help - Подробная помощь\n• /lang - Изменить язык\n\n🚀 *Все боты ПРОВЕРЕНЫ и ФУНКЦИОНАЛЬНЫ!*',
         help: '❓ *ПОЛНАЯ ПОМОЩЬ*\n\n🤖 *Что это за бот?*\nЯ **Поиск ПРОВЕРЕННЫХ Ботов**, твой помощник для поиска **100% РАБОЧИХ** ботов Telegram. У меня база данных с более чем 50,000 ПРОВЕРЕННЫХ рабочих ботов.\n\n🎯 *Доступные команды:*\n• /start - Показать главное меню\n• /search [слово] - Поиск конкретных ботов\n• /help - Эта помощь\n• /lang - Изменить язык\n\n🔍 *Как искать:*\n• `/search музыка` - Найти музыкальных ботов\n• `/search игры` - Найти игровых ботов\n• `/search новости` - Найти новостных ботов\n\n📱 *Навигация:*\n• Используй кнопки для изучения категорий\n• Переходи с ⬅️ ➡️ между страницами\n• Нажми любой @username чтобы открыть бота\n\n✅ *Гарантия:*\nВсе наши боты проверены вручную.',
-        searchResults: '🔍 *Результаты поиска для "{query}":*\n\nНайдено {count} ботов:',
-        noResults: '❌ *Боты для "{query}" не найдены*\n\nПопробуй:\n• Более общие термины\n• Английские слова\n• Названия категорий',
+        favorites: '❤️ *Твои Любимые Боты*\n\nУ тебя {count} сохранённых ботов:',
+        noFavorites: '💔 *У тебя пока нет любимых ботов*\n\n💡 *Чтобы добавить в избранное:*\n• Изучай категории с помощью кнопок\n• Нажми "❤️ Избранное" на любом боте\n• Возвращайся сюда с /favorites чтобы их увидеть',
+        addedToFavorites: '❤️ *Бот добавлен в избранное!*\n\nВсе твои избранные можно посмотреть с /favorites',
+        removedFromFavorites: '💔 *Бот удалён из избранного*',
+        alreadyInFavorites: '❤️ *Этот бот уже в твоём избранном*',
         categories: {
             juegos: '🎮 Игры',
             musica: '🎵 Музыка',
@@ -492,6 +501,9 @@ const RATE_LIMIT_MS = 1000; // 1 segundo entre mensajes
 // Almacenamiento de idioma por usuario
 const userLanguages = new Map();
 
+// Almacenamiento de favoritos por usuario
+const userFavorites = new Map();
+
 // Función para obtener idioma del usuario
 function getUserLanguage(userId) {
     return userLanguages.get(userId) || 'es'; // Español por defecto
@@ -500,6 +512,38 @@ function getUserLanguage(userId) {
 // Función para establecer idioma del usuario
 function setUserLanguage(userId, language) {
     userLanguages.set(userId, language);
+}
+
+// Función para obtener favoritos del usuario
+function getUserFavorites(userId) {
+    return userFavorites.get(userId) || [];
+}
+
+// Función para agregar bot a favoritos
+function addToFavorites(userId, bot) {
+    const favorites = getUserFavorites(userId);
+    const isAlreadyFavorite = favorites.some(fav => fav.username === bot.username);
+    
+    if (!isAlreadyFavorite) {
+        favorites.push(bot);
+        userFavorites.set(userId, favorites);
+        return true; // Agregado exitosamente
+    }
+    return false; // Ya estaba en favoritos
+}
+
+// Función para remover bot de favoritos
+function removeFromFavorites(userId, botUsername) {
+    const favorites = getUserFavorites(userId);
+    const newFavorites = favorites.filter(bot => bot.username !== botUsername);
+    userFavorites.set(userId, newFavorites);
+    return favorites.length !== newFavorites.length; // true si se removió algo
+}
+
+// Función para verificar si un bot está en favoritos
+function isInFavorites(userId, botUsername) {
+    const favorites = getUserFavorites(userId);
+    return favorites.some(bot => bot.username === botUsername);
 }
 
 // Función para verificar rate limiting
@@ -515,133 +559,7 @@ function checkRateLimit(userId) {
     return true;
 }
 
-// Función mejorada de búsqueda
-function searchBots(query, userLang = 'es') {
-    if (!query || query.trim().length < 2) return [];
-    
-    const searchTerm = query.toLowerCase().trim();
-    const results = [];
-    
-    // Términos de búsqueda por idioma
-    const searchMappings = {
-        'es': {
-            'juegos': ['juego', 'juegos', 'game', 'games', 'play', 'gaming'],
-            'musica': ['musica', 'música', 'music', 'song', 'audio', 'sound'],
-            'educacion': ['educacion', 'educación', 'education', 'learn', 'study', 'school'],
-            'noticias': ['noticias', 'news', 'noticia', 'info', 'información'],
-            'productividad': ['productividad', 'productivity', 'work', 'todo', 'task']
-        },
-        'en': {
-            'juegos': ['game', 'games', 'play', 'gaming', 'entertainment'],
-            'musica': ['music', 'song', 'audio', 'sound', 'radio'],
-            'educacion': ['education', 'learn', 'study', 'school', 'teaching'],
-            'noticias': ['news', 'information', 'update', 'report'],
-            'productividad': ['productivity', 'work', 'task', 'organize', 'efficiency']
-        },
-        'ru': {
-            'juegos': ['игра', 'игры', 'развлечение', 'game', 'games'],
-            'musica': ['музыка', 'песня', 'аудио', 'звук', 'music'],
-            'educacion': ['образование', 'обучение', 'учеба', 'школа', 'education'],
-            'noticias': ['новости', 'информация', 'сводка', 'news'],
-            'productividad': ['продуктивность', 'работа', 'задача', 'productivity']
-        },
-        'zh': {
-            'juegos': ['遊戲', '游戏', '娛樂', '遊玩', 'game', 'games', 'play'],
-            'musica': ['音樂', '音乐', '歌曲', '音頻', '聲音', 'music', 'song'],
-            'educacion': ['教育', '學習', '学习', '學校', '学校', 'education', 'learn'],
-            'noticias': ['新聞', '新闻', '消息', '資訊', '资讯', 'news'],
-            'productividad': ['生產力', '生产力', '工作', '效率', 'productivity', 'work']
-        },
-        'pt': {
-            'juegos': ['jogo', 'jogos', 'game', 'games', 'jogar', 'entretenimento'],
-            'musica': ['música', 'musica', 'som', 'áudio', 'canção', 'music'],
-            'educacion': ['educação', 'educacao', 'aprender', 'estudo', 'escola', 'education'],
-            'noticias': ['notícias', 'noticias', 'informação', 'informacao', 'news'],
-            'productividad': ['produtividade', 'trabalho', 'tarefa', 'productivity', 'work']
-        },
-        'ja': {
-            'juegos': ['ゲーム', 'げーむ', 'プレイ', 'エンターテイメント', 'game', 'play'],
-            'musica': ['音楽', 'おんがく', '歌', 'うた', 'オーディオ', 'music', 'song'],
-            'educacion': ['教育', 'きょういく', '学習', 'がくしゅう', '勉強', 'education', 'learn'],
-            'noticias': ['ニュース', 'にゅーす', '情報', 'じょうほう', 'news'],
-            'productividad': ['生産性', 'せいさんせい', '仕事', 'しごと', 'productivity', 'work']
-        },
-        'ar': {
-            'juegos': ['لعبة', 'ألعاب', 'لعب', 'ترفيه', 'game', 'games'],
-            'musica': ['موسيقى', 'أغنية', 'صوت', 'موسيقية', 'music', 'song'],
-            'educacion': ['تعليم', 'تعلم', 'دراسة', 'مدرسة', 'education', 'learn'],
-            'noticias': ['أخبار', 'معلومات', 'إعلام', 'news'],
-            'productividad': ['إنتاجية', 'عمل', 'مهمة', 'productivity', 'work']
-        },
-        'he': {
-            'juegos': ['משחק', 'משחקים', 'משחק', 'בידור', 'game', 'games'],
-            'musica': ['מוזיקה', 'שיר', 'צליל', 'אודיו', 'music', 'song'],
-            'educacion': ['חינוך', 'לימוד', 'לימודים', 'בית ספר', 'education', 'learn'],
-            'noticias': ['חדשות', 'מידע', 'עדכון', 'news'],
-            'productividad': ['פרודוקטיביות', 'עבודה', 'משימה', 'productivity', 'work']
-        },
-        'ro': {
-            'juegos': ['joc', 'jocuri', 'game', 'games', 'divertisment'],
-            'musica': ['muzică', 'muzica', 'cântec', 'audio', 'sunet', 'music'],
-            'educacion': ['educație', 'educatie', 'învățare', 'studiu', 'școală', 'education'],
-            'noticias': ['știri', 'stiri', 'informații', 'informatii', 'news'],
-            'productividad': ['productivitate', 'muncă', 'munca', 'sarcină', 'productivity']
-        }
-    };
-    
-    // Buscar en todas las categorías
-    Object.keys(botCategories).forEach(category => {
-        const bots = botCategories[category] || [];
-        
-        // Verificar si el término coincide con la categoría
-        const categoryTerms = searchMappings[userLang]?.[category] || [];
-        const isCategory = categoryTerms.some(term => 
-            term.includes(searchTerm) || searchTerm.includes(term)
-        );
-        
-        bots.forEach(bot => {
-            const score = calculateRelevanceScore(bot, searchTerm, isCategory);
-            if (score > 0) {
-                results.push({ ...bot, category, score });
-            }
-        });
-    });
-    
-    // Ordenar por relevancia
-    return results
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 50); // Limitar a 50 resultados
-}
-
-// Función para calcular puntuación de relevancia
-function calculateRelevanceScore(bot, searchTerm, isCategory) {
-    let score = 0;
-    const name = bot.name.toLowerCase();
-    const username = bot.username.toLowerCase();
-    const description = bot.description.toLowerCase();
-    
-    // Coincidencia exacta en username (más importante)
-    if (username.includes(searchTerm)) score += 10;
-    
-    // Coincidencia en nombre
-    if (name.includes(searchTerm)) score += 8;
-    
-    // Coincidencia en descripción
-    if (description.includes(searchTerm)) score += 5;
-    
-    // Bonus si es búsqueda por categoría
-    if (isCategory) score += 3;
-    
-    // Bonus por popularidad (usuarios)
-    if (bot.users > 5000000) score += 2;
-    if (bot.users > 10000000) score += 1;
-    
-    // Bonus por rating
-    if (bot.rating >= 4.5) score += 2;
-    if (bot.rating >= 4.0) score += 1;
-    
-    return score;
-}
+// Sistema de favoritos implementado - búsqueda removida para mejor UX
 
 // Función para paginar resultados
 function paginateResults(results, page = 0, itemsPerPage = 10) {
@@ -712,7 +630,10 @@ export default async function handler(req, res) {
                                 { text: '🎲 Random', callback_data: 'random' }
                             ],
                             [
-                                { text: '📊 Stats', callback_data: 'stats' },
+                                { text: '❤️ Favoritos', callback_data: 'favorites' },
+                                { text: '📊 Stats', callback_data: 'stats' }
+                            ],
+                            [
                                 { text: '🌐 Language', callback_data: 'lang' }
                             ]
                         ]
@@ -754,44 +675,31 @@ export default async function handler(req, res) {
                     });
                 }
                 
-                else if (text.startsWith('/search ')) {
-                    const searchTerm = text.replace('/search ', '').trim();
+                else if (text === '/favorites') {
                     const userLang = getUserLanguage(userId);
+                    const userFavorites = getUserFavorites(userId);
                     
-                    // Validar término de búsqueda
-                    if (!searchTerm || searchTerm.length < 2 || searchTerm.length > 50) {
-                        const errorMsg = userLang === 'en' ? 
-                            '❌ Please enter a valid search term (2-50 characters)\n\n💡 Example: /search music' :
-                            userLang === 'ru' ?
-                            '❌ Пожалуйста, введите правильный поисковый запрос (2-50 символов)\n\n💡 Пример: /search музыка' :
-                            '❌ Por favor ingresa un término de búsqueda válido (2-50 caracteres)\n\n💡 Ejemplo: /search música';
-                            
-                        await bot.sendMessage(chatId, errorMsg, {
+                    if (userFavorites.length === 0) {
+                        const message = languages[userLang].noFavorites || languages['es'].noFavorites;
+                        await bot.sendMessage(chatId, message, {
+                            parse_mode: 'Markdown',
                             reply_markup: {
                                 inline_keyboard: [[
                                     { text: '🏠 Menu', callback_data: 'menu' }
                                 ]]
                             }
                         });
-                        return;
-                    }
-                    
-                    // Usar la nueva función de búsqueda mejorada
-                    const results = searchBots(searchTerm, userLang);
-
-                    if (results.length > 0) {
-                        const paginated = paginateResults(results, 0, 5);
-                        
-                        const message = languages[userLang].searchResults
-                            .replace('{query}', searchTerm)
-                            .replace('{count}', results.length) + '\n\n' +
+                    } else {
+                        const paginated = paginateResults(userFavorites, 0, 5);
+                        const message = (languages[userLang].favorites || languages['es'].favorites)
+                            .replace('{count}', userFavorites.length) + '\n\n' +
                             paginated.results.map((bot, index) => formatBot(bot, index + 1)).join('\n\n');
 
                         const keyboard = [];
                         const navRow = [];
                         
                         if (paginated.hasNext) {
-                            navRow.push({ text: '➡️ Next', callback_data: `search_${encodeURIComponent(searchTerm)}_1` });
+                            navRow.push({ text: '➡️ Next', callback_data: 'favorites_1' });
                         }
                         if (navRow.length > 0) keyboard.push(navRow);
                         
@@ -800,16 +708,6 @@ export default async function handler(req, res) {
                         await bot.sendMessage(chatId, message, {
                             parse_mode: 'Markdown',
                             reply_markup: { inline_keyboard: keyboard }
-                        });
-                    } else {
-                        const noResultsMsg = languages[userLang].noResults.replace('{query}', searchTerm);
-                        
-                        await bot.sendMessage(chatId, noResultsMsg, {
-                            reply_markup: {
-                                inline_keyboard: [[
-                                    { text: '🏠 Menu', callback_data: 'menu' }
-                                ]]
-                            }
                         });
                     }
                 }
@@ -963,7 +861,10 @@ export default async function handler(req, res) {
                                 { text: '🎲 Random', callback_data: 'random' }
                             ],
                             [
-                                { text: '📊 Stats', callback_data: 'stats' },
+                                { text: '❤️ Favoritos', callback_data: 'favorites' },
+                                { text: '📊 Stats', callback_data: 'stats' }
+                            ],
+                            [
                                 { text: '🌐 Language', callback_data: 'lang' }
                             ]
                         ]
@@ -975,6 +876,48 @@ export default async function handler(req, res) {
                         parse_mode: 'Markdown',
                         reply_markup: keyboard
                     });
+                }
+
+                else if (data === 'favorites') {
+                    const userFavorites = getUserFavorites(userId);
+                    
+                    if (userFavorites.length === 0) {
+                        const message = languages[userLang].noFavorites || languages['es'].noFavorites;
+                        await bot.editMessageText(message, {
+                            chat_id: chatId,
+                            message_id: messageId,
+                            parse_mode: 'Markdown',
+                            reply_markup: {
+                                inline_keyboard: [[
+                                    { text: '🏠 Menu', callback_data: 'menu' }
+                                ]]
+                            }
+                        });
+                    } else {
+                        const paginated = paginateResults(userFavorites, 0, 5);
+                        const message = (languages[userLang].favorites || languages['es'].favorites)
+                            .replace('{count}', userFavorites.length) + '\n\n' +
+                            paginated.results.map((bot, index) => formatBot(bot, index + 1)).join('\n\n');
+
+                        const keyboard = [];
+                        const navRow = [];
+                        
+                        if (paginated.hasNext) {
+                            navRow.push({ text: '➡️ Next', callback_data: 'favorites_1' });
+                        }
+                        if (navRow.length > 0) keyboard.push(navRow);
+                        
+                        keyboard.push([{ text: '🏠 Menu', callback_data: 'menu' }]);
+
+                        await bot.editMessageText(message, {
+                            chat_id: chatId,
+                            message_id: messageId,
+                            parse_mode: 'Markdown',
+                            reply_markup: { inline_keyboard: keyboard }
+                        });
+                    }
+                    
+                    await bot.answerCallbackQuery(query.id);
                 }
 
                 else if (data.startsWith('cat_')) {
@@ -991,12 +934,24 @@ export default async function handler(req, res) {
                     const paginated = paginateResults(bots, page, 10);
                     let message = `📂 *${category.toUpperCase()}*\n\n📊 Total: ${bots.length.toLocaleString()} bots\n📄 Página ${page + 1} de ${paginated.totalPages}\n\n`;
                     
+                    // Crear botones para cada bot
+                    const botButtons = [];
                     paginated.results.forEach((bot, index) => {
                         const globalIndex = (page * 10) + index + 1;
                         message += formatBot(bot, globalIndex) + '\n\n';
+                        
+                        // Agregar botón de favorito para cada bot
+                        const isAlreadyFavorite = isInFavorites(userId, bot.username);
+                        const favoriteText = isAlreadyFavorite ? '💔 Quitar' : '❤️ Favorito';
+                        const favoriteData = `fav_${isAlreadyFavorite ? 'remove' : 'add'}_${encodeURIComponent(bot.username)}`;
+                        
+                        botButtons.push([
+                            { text: `${globalIndex}. ${bot.name}`, url: `https://t.me/${bot.username.replace('@', '')}` },
+                            { text: favoriteText, callback_data: favoriteData }
+                        ]);
                     });
 
-                    const keyboard = [];
+                    const keyboard = botButtons;
                     const navRow = [];
                     
                     if (paginated.hasPrev) {
@@ -1161,7 +1116,41 @@ export default async function handler(req, res) {
                     });
                 }
 
-                await bot.answerCallbackQuery(query.id);
+                // Handler para agregar/quitar favoritos
+                else if (data.startsWith('fav_')) {
+                    const parts = data.split('_');
+                    const action = parts[1]; // 'add' o 'remove'
+                    const botUsername = decodeURIComponent(parts[2]);
+                    
+                    if (action === 'add') {
+                        // Buscar el bot en todas las categorías
+                        let botToAdd = null;
+                        for (const category of Object.values(botCategories)) {
+                            botToAdd = category.find(bot => bot.username === botUsername);
+                            if (botToAdd) break;
+                        }
+                        
+                        if (botToAdd) {
+                            const added = addToFavorites(userId, botToAdd);
+                            const message = added ? 
+                                (languages[userLang].addedToFavorites || languages['es'].addedToFavorites) :
+                                (languages[userLang].alreadyInFavorites || languages['es'].alreadyInFavorites);
+                            await bot.answerCallbackQuery(query.id, { text: message, show_alert: true });
+                        }
+                    } else if (action === 'remove') {
+                        const removed = removeFromFavorites(userId, botUsername);
+                        const message = removed ? 
+                            (languages[userLang].removedFromFavorites || languages['es'].removedFromFavorites) :
+                            'Bot no encontrado en favoritos';
+                        await bot.answerCallbackQuery(query.id, { text: message, show_alert: true });
+                    }
+                    
+                    // No necesitamos actualizar el mensaje aquí, el usuario puede navegar normalmente
+                }
+
+                else {
+                    await bot.answerCallbackQuery(query.id);
+                }
             }
         } catch (error) {
             console.error('Error:', error);
