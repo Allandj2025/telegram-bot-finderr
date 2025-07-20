@@ -1,11 +1,8 @@
 {
-  "name": "telegram-bot-finder-vercel",
+  "name": "telegram-bot-finder",
   "version": "1.0.0",
-  "description": "Bot Finder para Telegram optimizado para Vercel",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
+  "description": "Bot Finder para Telegram",
+  "main": "api/webhook.js",
   "dependencies": {
     "node-telegram-bot-api": "^0.64.0"
   },
